@@ -28,6 +28,10 @@ in
   "privacy.userContext.enabled" = true;
   "privacy.userContext.ui.enabled" = true;
   "privacy.userContext.longPressBehavior" = 2;
+  
+  # Scroll with middle click
+  "general.autoScroll" = true;
+  "middlemouse.paste" = false;
 
   # Smooth Scroll
   "general.smoothScroll" = true;
@@ -142,8 +146,8 @@ in
 
   # General settings
   "ui.key.accelKey" = 17; # Set CTRL as master key
-  "intl.locale.requested" = "en-GB,en-US";
-  "browser.tabs.inTitlebar" = 0;
+  "intl.locale.requested" = "en-US";
+  "browser.tabs.inTitlebar" = 1;
   "browser.aboutConfig.showWarning" = lock-false;
   "browser.aboutwelcome.enabled" = lock-false;
   "browser.tabs.firefox-view" = lock-false;
@@ -223,6 +227,8 @@ in
         "firemonkey_eros_man-browser-action"
         "addon_darkreader_org-browser-action"
         "queryamoid_kaply_com-browser-action"
+        "vimium-c@gdh1995.cn"
+        "KeeperFFStoreExtension@KeeperSecurityInc"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
       ];
       nav-bar = [
@@ -236,8 +242,8 @@ in
 
         # Extensions
         "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
-        "firemonkey_eros_man-browser-action"
-        "ublock0_raymondhill_net-browser-action"
+        #"firemonkey_eros_man-browser-action"
+        "KeeperFFStoreExtension@KeeperSecurityInc"
         # "addon_darkreader_org-browser-action"
         # "queryamoid_kaply_com-browser-action"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"

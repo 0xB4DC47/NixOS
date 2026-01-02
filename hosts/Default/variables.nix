@@ -1,5 +1,5 @@
 {
-  username = "zer0"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
+  username = "phil"; # auto-set with install.sh, live-install.sh, and rebuild scripts.
 
   # Desktop Environment
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
@@ -19,14 +19,14 @@
   games = true; # Enable/Disable gaming module
 
   # Hardware
-  hostname = "NixOS";
+  hostname = "nixos-desktop";
   videoDriver = "nvidia"; # nvidia, amdgpu, intel
 
   # Localization
-  timezone = "Europe/London";
-  locale = "en_GB.UTF-8";
-  clock24h = true;
-  kbdLayout = "gb";
-  kbdVariant = "extd";
-  consoleKeymap = "uk";
+  timezone = "America/New_York";
+  locale = "en_US.UTF-8";
+  clock24h = false;
+  kbdLayout = "us";
+  kbdVariant = "";
+  consoleKeymap = "us";
 }

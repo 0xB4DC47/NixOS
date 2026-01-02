@@ -146,14 +146,16 @@ in
                 "QT_ENABLE_HIGHDPI_SCALING,1"
                 "WLR_RENDERER_ALLOW_SOFTWARE,1"
                 "NIXPKGS_ALLOW_UNFREE,1"
+                #"GTK_ENABLE_PRIMARY_PASTE,0" # Adding this to hopefully remove the middle click to paste
               ];
               exec-once =
                 let
                   wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { inherit defaultWallpaper; };
                 in
                 [
-                  #"[workspace 1 silent] ${terminal}"
-                  #"[workspace 5 silent] ${browser}"
+                  "[workspace 1 silent] ${terminal}"
+                  "[workspace 5 silent] ${browser}"
+                  "[workspace 10 silent] vesktop" # discord 
                   #"[workspace 6 silent] spotify"
                   #"[workspace special silent] ${browser} --private-window"
                   #"[workspace special silent] ${terminal}"
@@ -275,6 +277,9 @@ in
               gesture = [
                 "3, horizontal, workspace"
               ];
+              cursor = {
+                inactive_timeout = 1;
+              };
               dwindle = {
                 pseudotile = true;
                 preserve_split = true;
@@ -300,6 +305,8 @@ in
 
                 # Can use FLOAT FLOAT for active and inactive or just FLOAT
                 "opacity 1.00 1.00,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
+                "opacity 1.00 1.00,class:^(discord)$" # Discord-Electron
+                "opacity 1.00 1.00,class:^(WebCord)$" # WebCord-Electron
                 "opacity 0.90 0.80,class:^(Emacs)$"
                 "opacity 0.90 0.80,class:^(gcr-prompter)$" # keyring prompt
                 "opacity 0.90 0.80,title:^(Hyprland Polkit Agent)$" # polkit prompt
@@ -325,8 +332,6 @@ in
                 "opacity 0.80 0.70,class:^(qt5ct|qt6ct)$"
                 "opacity 0.80 0.70,class:^(yad)$"
 
-                "opacity 0.90 0.80,class:^(discord)$" # Discord-Electron
-                "opacity 0.90 0.80,class:^(WebCord)$" # WebCord-Electron
                 "opacity 0.90 0.80,class:^(com.github.rafostar.Clapper)$" # Clapper-Gtk
                 "opacity 0.80 0.70,class:^(com.github.tchx84.Flatseal)$" # Flatseal-Gtk
                 "opacity 0.80 0.70,class:^(hu.kramo.Cartridges)$" # Cartridges-Gtk
@@ -569,28 +574,63 @@ in
                 #pass_mouse_when_bound=0
               };
 
+              # =============================================================
+              # MONITOR CONFIGURATION - Updated for your setup
+              # =============================================================
+              # Layout (left to right):
+              #   DP-5 (vertical) -> DP-4 (main) -> HDMI-A-2 (right)
+              #
+              # Positions calculated:
+              #   - DP-5 (vertical 1080x1920): x=0
+              #   - DP-4 (2560x1440): x=1080 (after vertical monitor width)
+              #   - HDMI-A-2 (1920x1080): x=3640 (1080+2560)
+              # =============================================================
               monitor = [
-                # Easily plug in any monitor
+                # Fallback for any other monitors
                 ",preferred,auto,1"
 
-                # My Monitors (Fine to leave these since i used the serial numbers)
-                "desc:BNQ BenQ EW277HDR 99J01861SL0,preferred,-1920x0,1"
-                "desc:BNQ BenQ EL2870U PCK00489SL0,preferred,0x0,2"
-                "desc:BNQ BenQ xl2420t 99D06760SL0,preferred,1920x-420,1,transform,1" # 5 for fipped
-              ];
+                # Left monitor - BenQ GW2490 (vertical/portrait mode)
+                # Serial: F3S0291101Q, transform 1 = 90° rotation
+                #"desc:BNQ BenQ GW2490 F3S0291101Q,preferred,0x0,1,transform,1"
+                #"DP-5,1080x1920@60, 0x0, 1, transform,1"
+                #"DP-5,preferred, 0x0, 1, transform,1"
 
+                # Main/Center monitor - Dell S2417DG
+                # Serial: #ASP3oRncBhPd
+                # Position: starts at x=1080 (width of rotated left monitor)
+                #"desc:Dell Inc. Dell S2417DG #ASP3oRncBhPd,preferred,1080x0,1"
+                #"DP-4,2560x1440@144,1080x0,1"
+
+                # Right monitor - BenQ GW2490
+                # Serial: ETGAR02706SL0
+                # Position: starts at x=3640 (1080 + 2560)
+                #"desc:BNQ BenQ GW2490 ETGAR02706SL0,preferred,3640x0,1"
+                #"HDMI-A-2,preferred,3640x0,1"
+
+                "desc:BNQ BenQ GW2490 ETGAR02706SL0,1920x1080@100.0,3640x367,1.0"
+                "desc:Dell Inc. Dell S2417DG ##ASP3oRncBhPd,2560x1440@144.0,1080x220,1.0, vrr, 0"
+                "desc:BNQ BenQ GW2490 F3S0291101Q,1920x1080@100.0,0x0,1.0"
+                "desc:BNQ BenQ GW2490 F3S0291101Q,transform,1"
+              ];
+              # =============================================================
+              # WORKSPACE CONFIGURATION - Updated for your monitors
+              # =============================================================
               workspace = [
-                # Binds workspaces to my monitors (find desc with: hyprctl monitors)
-                "1,monitor:desc:BNQ BenQ EL2870U PCK00489SL0,default:true"
-                "2,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
-                "3,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
-                "4,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
-                "5,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0,default:true"
-                "6,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0"
-                "7,monitor:desc:BNQ BenQ EW277HDR 99J01861SL0"
-                "8,monitor:desc:BNQ BenQ xl2420t 99D06760SL0,default:true"
-                "9,monitor:desc:BNQ BenQ xl2420t 99D06760SL0"
-                "10,monitor:desc:BNQ BenQ EL2870U PCK00489SL0"
+                # Main monitor (Dell S2417DG) - Primary workspaces 1-4
+                "1,monitor:desc:Dell Inc. Dell S2417DG #ASP3oRncBhPd,default:true"
+                "2,monitor:desc:Dell Inc. Dell S2417DG #ASP3oRncBhPd"
+                "3,monitor:desc:Dell Inc. Dell S2417DG #ASP3oRncBhPd"
+                "4,monitor:desc:Dell Inc. Dell S2417DG #ASP3oRncBhPd"
+
+                # Left vertical monitor (BenQ GW2490 F3S0291101Q) - Workspaces 5-7
+                "5,monitor:desc:BNQ BenQ GW2490 F3S0291101Q,default:true"
+                "6,monitor:desc:BNQ BenQ GW2490 F3S0291101Q"
+                "7,monitor:desc:BNQ BenQ GW2490 F3S0291101Q"
+
+                # Right monitor (BenQ GW2490 ETGAR02706SL0) - Workspaces 8-10
+                "8,monitor:desc:BNQ BenQ GW2490 ETGAR02706SL0,default:true"
+                "9,monitor:desc:BNQ BenQ GW2490 ETGAR02706SL0"
+                "10,monitor:desc:BNQ BenQ GW2490 ETGAR02706SL0"
               ];
             };
           };

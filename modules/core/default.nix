@@ -17,7 +17,7 @@
     ./syncthing.nix
     ./system.nix
     ./users.nix
-    # ./flatpak.nix
-    # ./virtualisation.nix
+    ./flatpak.nix
+    ./virtualisation.nix
   ];
 }

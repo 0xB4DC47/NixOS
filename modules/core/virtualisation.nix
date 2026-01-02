@@ -15,10 +15,10 @@
       qemu = {
         package = pkgs.qemu_kvm;
         swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [ pkgs.OVMFFull.fd ];
-        };
+#       ovmf = {
+#         enable = true;
+#         packages = [ pkgs.OVMFFull.fd ];
+#       };
       };
       hooks.qemu = {
         "passthrough" = lib.getExe (
@@ -79,7 +79,8 @@
     spice-gtk
     spice-protocol
     spice-vdagent
-    win-virtio
+    #win-virtio # this was renamed to virtio-win
+    virtio-win
     win-spice
 
     lazydocker

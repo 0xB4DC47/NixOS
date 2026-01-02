@@ -1,0 +1,5 @@
+- [ ] Make improvements to the tmux meta+shift+T command to also be able to launch new tmux session or kill existing ones
+- [ ] Install a Qobuz player
+- [ ] Figure out Tmux keybinds
+- [ ] Fix the nixvim keybinds and config
+- [x] install browser extensions of choice
