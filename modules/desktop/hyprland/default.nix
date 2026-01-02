@@ -171,7 +171,7 @@ in
                   "${./scripts/batterynotify.sh}" # battery notification
                   # "${./scripts/autowaybar.sh}" # uncomment packages at the top
                   "polkit-agent-helper-1"
-                  "pamixer --set-volume 50"
+                  "pamixer --set-volume 100"
                 ];
               input = {
                 kb_layout = "${kbdLayout},ru";
@@ -307,6 +307,8 @@ in
                 "opacity 1.00 1.00,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
                 "opacity 1.00 1.00,class:^(discord)$" # Discord-Electron
                 "opacity 1.00 1.00,class:^(WebCord)$" # WebCord-Electron
+                "opacity 0.90 0.90,class:^(Spotify|spotify)$"
+                "opacity 0.90 0.90,title:(.*)(Spotify)(.*)$"
                 "opacity 0.90 0.80,class:^(Emacs)$"
                 "opacity 0.90 0.80,class:^(gcr-prompter)$" # keyring prompt
                 "opacity 0.90 0.80,title:^(Hyprland Polkit Agent)$" # polkit prompt
@@ -320,8 +322,6 @@ in
                 "opacity 0.80 0.70,class:^(org.gnome.FileRoller)$"
                 "opacity 0.80 0.70,class:^(io.github.ilya_zlobintsev.LACT)$"
                 "opacity 0.80 0.70,class:^(Steam|steam|steamwebhelper)$"
-                "opacity 0.80 0.70,class:^(Spotify|spotify)$"
-                "opacity 0.80 0.70,title:(.*)(Spotify)(.*)$"
                 "opacity 0.80 0.70,title:^(Kvantum Manager)$"
                 "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
                 "opacity 0.80 0.70,class:^(code|code-url-handler)$"
