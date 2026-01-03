@@ -146,6 +146,11 @@ in
                 "QT_ENABLE_HIGHDPI_SCALING,1"
                 "WLR_RENDERER_ALLOW_SOFTWARE,1"
                 "NIXPKGS_ALLOW_UNFREE,1"
+                "QT_IM_MODULE,fcitx" # Testing Added for possible chinese language support
+                "GTK_IM_MODULE,fcitx" # Testing Added for possible chinese language support
+                "XMODIFIERS,@im=fcitx" # Testing Added for possible chinese language support
+                "SDL_IM_MODULE,fcitx" # Testing Added for possible chinese language support
+                "GLFW_IM_MODULE,ibus" # Testing Added for possible chinese language support
                 #"GTK_ENABLE_PRIMARY_PASTE,0" # Adding this to hopefully remove the middle click to paste
               ];
               exec-once =
@@ -273,7 +278,7 @@ in
                 vfr = true; # always keep on
                 vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
               };
-              xwayland.force_zero_scaling = false;
+              xwayland.force_zero_scaling = true; # setting to true to hopefully fix uni2 resolution issue
               gesture = [
                 "3, horizontal, workspace"
               ];
@@ -307,6 +312,7 @@ in
                 "opacity 1.00 1.00,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
                 "opacity 1.00 1.00,class:^(discord)$" # Discord-Electron
                 "opacity 1.00 1.00,class:^(WebCord)$" # WebCord-Electron
+                #"opacity 0.80 0.70,class:^(Steam|steam|steamwebhelper)$"
                 "opacity 0.90 0.90,class:^(Spotify|spotify)$"
                 "opacity 0.90 0.90,title:(.*)(Spotify)(.*)$"
                 "opacity 0.90 0.80,class:^(Emacs)$"
@@ -321,7 +327,6 @@ in
                 "opacity 0.80 0.70,class:^(thunar-volman-settings)$"
                 "opacity 0.80 0.70,class:^(org.gnome.FileRoller)$"
                 "opacity 0.80 0.70,class:^(io.github.ilya_zlobintsev.LACT)$"
-                "opacity 0.80 0.70,class:^(Steam|steam|steamwebhelper)$"
                 "opacity 0.80 0.70,title:^(Kvantum Manager)$"
                 "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
                 "opacity 0.80 0.70,class:^(code|code-url-handler)$"
@@ -510,12 +515,12 @@ in
                   "$mainMod, j, movefocus, d"
 
                   # Go to workspace 6 and 7 with mouse side buttons
-                  "$mainMod, mouse:276, workspace, 5"
-                  "$mainMod, mouse:275, workspace, 6"
-                  "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
-                  "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
-                  "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
-                  "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
+                  #"$mainMod, mouse:276, workspace, 5"
+                  #"$mainMod, mouse:275, workspace, 6"
+                  #"$mainMod SHIFT, mouse:276, movetoworkspace, 5"
+                  #"$mainMod SHIFT, mouse:275, movetoworkspace, 6"
+                  #"$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
+                  #"$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
 
                   # Rebuild NixOS with a KeyBind
                   "$mainMod, U, exec, $term -e rebuild"

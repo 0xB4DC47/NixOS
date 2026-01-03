@@ -80,6 +80,24 @@ in
     LC_TELEPHONE = "${locale}";
     LC_TIME = "${locale}";
   };
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      qt6Packages.fcitx5-chinese-addons # Includes Pinyin
+      fcitx5-gtk
+      fcitx5-rime
+      rime-data
+    ];
+  };
+
+  #2 Add Chinese Fonts
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    wqy_zenhei
+  ];
+
   environment.variables = {
     templates = "${self}/dev-shells";
     NIXOS_OZONE_WL = "1";
