@@ -9,6 +9,7 @@
     (_: {
       programs.firefox = {
         enable = true;
+        package = pkgs.firefox-bin;
         policies = import ./policies.nix { inherit lib; };
         languagePacks = [
           "en-US"
