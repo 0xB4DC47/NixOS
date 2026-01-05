@@ -1,34 +1,40 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
-let
-  # Choose your package: 'ghidra' (from source) or 'ghidra-bin' (pre-compiled)
-  # Note: Extensions usually require the 'ghidra' package (built from source).
-  ghidra_pkg = pkgs.ghidra-bin;
-
-  # Ghidra stores config in ~/.config/ghidra/ghidra_<version>_PUBLIC
-  # This dynamic prefix helps keep the config pointing to the right spot.
-  ghidra_dir = ".config/ghidra/${ghidra_pkg.distroPrefix}";
-in
 {
-  home.packages = [
-    ghidra_pkg
+  home-manager.sharedModules = [
+    ({ config, pkgs, lib, ... }:
+    let
+      # Use the base package to get versioning
+      ghidra_base = pkgs.ghidra-bin;
+      
+      # Manually construct the folder name. 
+      # Ghidra's default folder is: ghidra_<version>_PUBLIC
+      ghidra_dir = ".config/ghidra/ghidra_${ghidra_base.version}_PUBLIC";
+
+      # The version with extensions
+      ghidra_final = pkgs.ghidra.withExtensions (exts: [
+          exts.findcrypt
+          exts.ghidra-firmware-utils
+          exts.ghidraninja-ghidra-scripts
+          exts.ret-sync
+          exts.gnudisassembler
+          exts.kaiju
+      ]);
+    in
+    {
+      home.packages = [ ghidra_final ];
+
+      home.file."${ghidra_dir}/preferences".text = ''
+        USER_AGREEMENT=ACCEPT
+        G_FILE_CHOOSER.ShowDotFiles=true
+        SHOW_TIPS=false
+        GhidraShowWhatsNew=false
+        LastNewProjectDirectory=${config.home.homeDirectory}/Documents/ghidra_projects
+      '';
+
+      home.activation.createGhidraProjectDir = config.lib.dag.entryAfter ["writeBoundary"] ''
+        $DRY_RUN_CMD mkdir -p $VERBOSE_ARG $HOME/Documents/ghidra_projects
+      '';
+    })
   ];
-
-  # Declarative Preferences
-  # Note: Since these files are in the Nix store (read-only), 
-  # Ghidra won't be able to save new settings changed in the GUI.
-  home.file."${ghidra_dir}/preferences".text = ''
-    USER_AGREEMENT=ACCEPT
-    G_FILE_CHOOSER.ShowDotFiles=true
-    SHOW_TIPS=false
-    GhidraShowWhatsNew=false
-    LastNewProjectDirectory=${config.home.homeDirectory}/Documents/ghidra_projects
-  '';
-
-  # Ensure the project directory exists
-  home.activation = {
-    createGhidraProjectDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p $HOME/Documents/ghidra_projects
-    '';
-  };
 }
