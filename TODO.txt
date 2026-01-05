@@ -3,3 +3,6 @@
 - [ ] Figure out Tmux keybinds
 - [ ] Fix the nixvim keybinds and config
 - [x] install browser extensions of choice
+- [ ] finalize the hyprland keybinds
+- [ ] add keeper to zen browser extension bar 
+- [ ] add yubikey support for git and user sign in
