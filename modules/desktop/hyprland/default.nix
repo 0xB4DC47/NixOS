@@ -2,6 +2,7 @@
   host,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -13,7 +14,10 @@ let
     kbdLayout
     kbdVariant
     defaultWallpaper
-    ;
+  ;
+  #hyprPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; # this targets unstable master branch
+  hyprPkg = pkgs.hyprland;
+  
 in
 {
   imports = [
@@ -97,8 +101,8 @@ in
             wl-clipboard
             xdotool
             yad
-            # socat # for and autowaybar.sh
-            # jq # for and autowaybar.sh
+            socat # for and autowaybar.sh
+            jq # for and autowaybar.sh
           ];
 
           xdg.configFile."hypr/icons" = {
@@ -112,7 +116,10 @@ in
           #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
           wayland.windowManager.hyprland = {
             enable = true;
+            package = hyprPkg;
             plugins = [
+              #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+              pkgs.hyprlandPlugins.hyprexpo
               # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
               # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
@@ -168,19 +175,20 @@ in
                   "${lib.getExe wallpaper}"
                   "waybar"
                   "swaync"
+                  #"hyprctl plugin load ${inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo}/lib/libhyprexpo.so"
                   "nm-applet --indicator"
                   # "wl-clipboard-history -t"
                   "${getExe' pkgs.wl-clipboard "wl-paste"} --type text --watch cliphist store" # clipboard store text data
                   "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
                   "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
                   "${./scripts/batterynotify.sh}" # battery notification
-                  # "${./scripts/autowaybar.sh}" # uncomment packages at the top
+                  "${./scripts/autowaybar.sh}" # uncomment packages at the top
                   "polkit-agent-helper-1"
                   "pamixer --set-volume 100"
                 ];
               input = {
-                kb_layout = "${kbdLayout},ru";
-                kb_variant = "${kbdVariant},";
+                kb_layout = "${kbdLayout}";
+                kb_variant = "${kbdVariant}";
                 repeat_delay = 275; # or 212
                 repeat_rate = 35;
                 numlock_by_default = true;
@@ -196,10 +204,12 @@ in
               };
               general = {
                 gaps_in = 4;
-                gaps_out = 9;
-                border_size = 2;
-                "col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
-                "col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
+                gaps_out = 8;
+                border_size = 3;
+                #"col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
+                #"col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
+                "col.active_border" = "rgba(ff00ffff) rgba(8800ffff) 45deg"; 
+                "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
                 resize_on_border = true;
                 layout = "dwindle"; # dwindle or master
                 # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
@@ -225,18 +235,16 @@ in
                 "col.border_locked_inactive" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
               };
               layerrule = [
-                "blur, rofi"
-                "ignorezero, rofi"
-                "ignorealpha 0.7, rofi"
-
-                "blur, swaync-control-center"
-                "blur, swaync-notification-window"
-                "ignorezero, swaync-control-center"
-                "ignorezero, swaync-notification-window"
-                "ignorealpha 0.7, swaync-control-center"
-                # "ignorealpha 0.8, swaync-notification-window"
-                # "dimaround, swaync-control-center"
+                "blur,rofi"
+                "ignorezero,rofi"
+                "ignorealpha 0.7,rofi"
+                "blur,swaync-control-center"
+                "ignorezero,swaync-control-center"
+                "ignorealpha 0.7,swaync-control-center"
+                "blur,swaync-notification-window"
+                "ignorezero,swaync-notification-window"
               ];
+
               animations = {
                 enabled = true;
                 bezier = [
@@ -279,9 +287,11 @@ in
                 vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
               };
               xwayland.force_zero_scaling = true; # setting to true to hopefully fix uni2 resolution issue
-              gesture = [
-                "3, horizontal, workspace"
-              ];
+              gestures = {
+                gesture = [
+                  "3, horizontal, workspace"
+                ];
+              };
               cursor = {
                 inactive_timeout = 1;
               };
@@ -294,8 +304,19 @@ in
                 new_on_top = true;
                 mfact = 0.5;
               };
-              windowrule = [
-                #"noanim, class:^(Rofi)$
+              plugin = {
+                hyprexpo = {
+                  columns = 1;
+                  gap_size = 5;
+                  bg_col = "rgb(111111)";
+                  workspace_method = "center current"; # [center current/first or [m+1/m-1]]
+                  enable_gesture = true; # lets you use gestures to open it
+                  gesture_fingers = 3;  # 3 finger swipe
+                  gesture_distance = 300;
+                };
+              };
+              windowrulev2 = [
+                #"noanim, class:^(Rofi)$"
                 "tile,title:(.*)(Godot)(.*)$"
                 # "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
                 # "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
@@ -328,8 +349,8 @@ in
                 "opacity 0.80 0.70,class:^(org.gnome.FileRoller)$"
                 "opacity 0.80 0.70,class:^(io.github.ilya_zlobintsev.LACT)$"
                 "opacity 0.80 0.70,title:^(Kvantum Manager)$"
-                "opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
-                "opacity 0.80 0.70,class:^(code|code-url-handler)$"
+                #"opacity 0.80 0.70,class:^(VSCodium|codium-url-handler)$"
+                #"opacity 0.80 0.70,class:^(code|code-url-handler)$"
                 "opacity 0.80 0.70,class:^(tuiFileManager)$"
                 "opacity 0.80 0.70,class:^(org.kde.dolphin)$"
                 "opacity 0.80 0.70,class:^(org.kde.ark)$"
@@ -434,26 +455,29 @@ in
                   # Window/Session actions
                   "$mainMod, Q, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
                   "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
-                  "$mainMod, delete, exit" # kill hyperland session
+                  "$mainMod CTRL ALT, delete, exit" # kill hyprland session
                   "$mainMod, W, togglefloating" # toggle the window on focus to float
                   "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
                   "ALT, return, fullscreen" # toggle the window on focus to fullscreen
+                  "$mainMod, F, fullscreen" # toggle the window on focus to fullscreen
                   "$mainMod ALT, L, exec, hyprlock" # lock screen
                   "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-                  "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+                    "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+
+                  # Hypr
 
                   # Applications/Programs
                   "$mainMod, Return, exec, $term"
                   "$mainMod, T, exec, $term"
                   "$mainMod, E, exec, $fileManager"
                   "$mainMod, C, exec, $editor"
-                  "$mainMod, F, exec, $browser"
+                  "$mainMod, B, exec, $browser"
                   "$mainMod SHIFT, S, exec, spotify"
                   "$mainMod SHIFT, Y, exec, youtube-music"
                   "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
                   "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-                  "$mainMod, A, exec, launcher drun" # launch desktop applications
+                  "$mainMod, A, hyprexpo:expo, toggle" # toggle expo window zoomout
                   "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
                   "$mainMod SHIFT, W, exec, launcher wallpaper" # launch wallpaper switcher
                   "$mainMod, Z, exec, launcher emoji" # launch emoji picker

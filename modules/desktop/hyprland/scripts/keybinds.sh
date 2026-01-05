@@ -38,7 +38,7 @@ yad \
   "SUPER Return" "Launch terminal" "$_terminal" \
   "SUPER T" "Launch terminal" "$_terminal" \
   "SUPER E" "Launch file manager" "$_terminal_FM" \
-  "SUPER F" "Launch browser" "$_browser" \
+  "SUPER B" "Launch browser" "$_browser" \
   "SUPER SHIFT S" "Launch spotify" "spotify" \
   "CTRL ALT Delete" "Open system monitor" "$_terminal -e 'btop'" \
   "SUPER A" "Launch application menu" "scripts/launcher drun" \
@@ -69,10 +69,11 @@ yad \
   "XF86AudioPlay" "Play/Pause media" "playerctl play-pause" \
   "XF86AudioNext" "Next media track" "playerctl next" \
   "XF86AudioPrev" "Previous media track" "playerctl previous" \
-  "SUPER Delete" "Exit Hyprland session" "exit" \
+  "SUPER CTRL ALT Delete" "Exit Hyprland session" "exit" \
   "SUPER W" "Toggle floating window" "togglefloating" \
   "SUPER SHIFT G" "Toggle window group" "togglegroup" \
   "ALT Return" "Toggle fullscreen" "fullscreen" \
+  "SUPER F" "Toggle fullscreen" "fullscreen" \
   "SUPER ALT L" "Lock screen" "hyprlock" \
   "SUPER Backspace" "Power menu" "wlogout -b 4" \
   "CTRL Escape" "Toggle Waybar" "pkill waybar || waybar" \

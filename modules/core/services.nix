@@ -1,10 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 {
+
+  environment.systemPackages = [pkgs.udiskie]; # This is a replacement for the devmon.enable below which was crashing on new builds
   # Services to start
   services = {
     libinput.enable = true; # Input Handling
     fstrim.enable = true; # SSD Optimizer
-    devmon.enable = true; # For Mounting USB & More
+    #devmon.enable = true; # For Mounting USB & More # this was causing crashes. 
     gvfs.enable = true; # For Mounting USB & More
     udisks2.enable = true; # For Mounting USB & More
 
