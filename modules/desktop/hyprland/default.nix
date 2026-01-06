@@ -119,7 +119,7 @@ in
             package = hyprPkg;
             plugins = [
               #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
-              pkgs.hyprlandPlugins.hyprexpo
+              #pkgs.hyprlandPlugins.hyprexpo # this seems to only works if plugin is targeting unstable. Will skip this plugin for now
               # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprwinwrap
               # inputs.hyprsysteminfo.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
@@ -182,7 +182,7 @@ in
                   "${getExe' pkgs.wl-clipboard "wl-paste"} --type image --watch cliphist store" # clipboard store image data
                   "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
                   "${./scripts/batterynotify.sh}" # battery notification
-                  "${./scripts/autowaybar.sh}" # uncomment packages at the top
+                  #"${./scripts/autowaybar.sh}" # uncomment packages at the top
                   "polkit-agent-helper-1"
                   "pamixer --set-volume 100"
                 ];
@@ -453,16 +453,17 @@ in
                   "$mainMod, F10, exec, pkill hyprsunset"
 
                   # Window/Session actions
-                  "$mainMod, Q, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+                  "$mainMod, W, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+                  "$mainMod SHIFT, W, exec, ${./scripts/wipe-workspace.sh}"
                   "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
                   "$mainMod CTRL ALT, delete, exit" # kill hyprland session
-                  "$mainMod, W, togglefloating" # toggle the window on focus to float
-                  "$mainMod SHIFT, G, togglegroup" # toggle the window on focus to float
+                  "$mainMod SHIFT, F, togglefloating" # toggle the window on focus to float
+                  "$mainMod SHIFT, G, togglegroup" # toggle the window to be a window group
                   "ALT, return, fullscreen" # toggle the window on focus to fullscreen
                   "$mainMod, F, fullscreen" # toggle the window on focus to fullscreen
                   "$mainMod ALT, L, exec, hyprlock" # lock screen
                   "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-                    "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+                  "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
 
                   # Hypr
 
@@ -477,10 +478,10 @@ in
                   "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
                   "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-                  "$mainMod, A, hyprexpo:expo, toggle" # toggle expo window zoomout
+                  #"$mainMod, A, hyprexpo:expo, toggle" # toggle expo window zoomout
                   "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
-                  "$mainMod SHIFT, W, exec, launcher wallpaper" # launch wallpaper switcher
-                  "$mainMod, Z, exec, launcher emoji" # launch emoji picker
+                  "$mainMod ALT, B, exec, launcher wallpaper" # launch wallpaper switcher
+                  "$mainMod, semi-colon, exec, launcher emoji" # launch emoji picker
                   "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
                   "$mainMod, G, exec, launcher games" # game launcher
                   # "$mainMod, tab, exec, launcher window" # switch between desktop applications
@@ -530,7 +531,14 @@ in
                   "$mainMod, right, movefocus, r"
                   "$mainMod, up, movefocus, u"
                   "$mainMod, down, movefocus, d"
-                  "ALT, Tab, movefocus, d"
+                    #"ALT, Tab, movefocus, d"
+                  "ALT, Tab, changegroupactive, f"
+                  "ALT SHIFT, Tab, changegroupactive, b"
+
+
+                  # This might be nice to toggle a system wide floating mode similar to pop-os
+                  #"$mainMod, Y, exec, hprctl keybword general:layout 'float'"
+                  #"$mainMod SHIFT, Y, exec hyprctl keybword general:layout 'dwindle'"
 
                   # Move focus with mainMod + HJKL keys
                   "$mainMod, h, movefocus, l"

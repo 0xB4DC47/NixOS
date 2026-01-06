@@ -6,3 +6,15 @@
 - [ ] finalize the hyprland keybinds
 - [ ] add keeper to zen browser extension bar 
 - [ ] add yubikey support for git and user sign in
+
+Key	Combo	Action	Logic
+Backspace	SUPER + BS	wlogout	Destructive / Final
+W	SUPER + W	killactive	Close (Matches Ctrl+W)
+W	SUPER + ALT + W	pin	Sticky / PiP
+Y	SUPER + Y	float layout	Pop!_OS "Easy Mode"
+Q	SUPER + Q	easyfocus	Vim-style window picker
+Tab	SUPER + Tab	cyclenext	Global Switch
+Tab	ALT + Tab	group cycle	Stack Switch
+G	SUPER + G	Steam/Games	Gaming
+G	SUPER + ALT + G	togglegroup	Create Stack
+Space	SUPER + Space	Rofi/Launcher	App Launching
