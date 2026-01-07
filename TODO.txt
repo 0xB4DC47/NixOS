@@ -6,6 +6,7 @@
 - [ ] finalize the hyprland keybinds
 - [ ] add keeper to zen browser extension bar 
 - [ ] add yubikey support for git and user sign in
+- [ ] figure out why firefox is auto-opening on startup
 
 Key	Combo	Action	Logic
 Backspace	SUPER + BS	wlogout	Destructive / Final

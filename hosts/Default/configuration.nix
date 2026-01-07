@@ -36,6 +36,7 @@ in
     ../../modules/desktop/${vars.desktop} # Set window manager defined in variables.nix
     ../../modules/programs/browser/${vars.browser} # Set browser defined in variables.nix
     ../../modules/programs/browser/firefox
+    ../../modules/programs/browser/brave
     ../../modules/programs/terminal/${vars.terminal} # Set terminal defined in variables.nix
     ../../modules/programs/editor/${vars.editor} # Set editor defined in variables.nix
    ../../modules/programs/editor/vscode # Set editor defined in variables.nix
@@ -47,6 +48,7 @@ in
     ../../modules/programs/cli/fastfetch
     ../../modules/programs/cli/btop
     ../../modules/programs/media/discord/vesktop
+    ../../modules/programs/media/discord/vencord
     ../../modules/programs/media/spicetify
     ../../modules/programs/electronics/kicad
     # ../../modules/programs/media/youtube-music

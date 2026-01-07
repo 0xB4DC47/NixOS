@@ -246,7 +246,8 @@ in
               ];
 
               animations = {
-                enabled = true;
+                #enabled = true;
+                enabled = false;
                 bezier = [
                   "linear, 0, 0, 1, 1"
                   "md3_standard, 0.2, 0, 0, 1"
@@ -469,7 +470,7 @@ in
 
                   # Applications/Programs
                   "$mainMod, Return, exec, $term"
-                  "$mainMod, T, exec, $term"
+                  "$mainMod, T, exec, $term -e tmux new-session -A -s main"
                   "$mainMod, E, exec, $fileManager"
                   "$mainMod, C, exec, $editor"
                   "$mainMod, B, exec, $browser"
