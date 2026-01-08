@@ -15,7 +15,7 @@
       ghidra_final = pkgs.ghidra.withExtensions (exts: [
           exts.findcrypt
           exts.ghidra-firmware-utils
-          exts.ghidraninja-ghidra-scripts
+          #exts.ghidraninja-ghidra-scripts # skipping this extension for now because of long build times 
           exts.ret-sync
           exts.gnudisassembler
           exts.kaiju

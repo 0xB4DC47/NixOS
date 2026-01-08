@@ -18,6 +18,10 @@
     #  url = "github:hyprwm/hyprland-plugins";
     #  inputs.hyprland.follows = "hyprland";
     #};
+    binaryninja = {
+      url = "github:jchv/nix-binary-ninja";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-doom-emacs-unstraightened = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = ""; # Doesn't use nixpkgs
@@ -69,6 +73,7 @@
     {
       self,
       nixpkgs,
+      binaryninja,
       ...
     }@inputs:
     let
@@ -85,6 +90,7 @@
           system = forAllSystems (system: system);
           modules = [
             ./hosts/${host}/configuration.nix
+            binaryninja.nixosModules.binaryninja
           ];
           specialArgs = {
             overlays = import ./overlays { inherit inputs host; };

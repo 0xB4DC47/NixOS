@@ -1,10 +1,17 @@
 { inputs, pkgs, ... }: 
 {
   home-manager.sharedModules = [
-    ({ ... }: {
-      home.packages = [
-        (pkgs.kicad.override { stable = true; })
-      ];
+    ({ pkgs, lib, ... }: { # Add 'lib' here
+      home.packages = [ (pkgs.kicad.override { stable = true; }) ];
+
+      gtk = {
+        enable = true;
+        theme = {
+          # Use lib.mkForce to override your global Catppuccin setting
+          name = lib.mkForce "Adwaita-dark"; 
+          package = lib.mkForce pkgs.gnome-themes-extra;
+        };
+      };
     })
   ];
 }
