@@ -45,4 +45,21 @@
       "net.core.netdev_max_backlog" = "10000";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    yubico-pam
+    yubikey-manager
+  ];
+
+  services.pcscd.enable = true;
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo. u2fAuth = true;
+  };
+  security.pam.u2f.settings = {
+    interactive = true;
+    cue = true;
+  };
+  security.pam.services.sddm.u2fAuth = true; # TODO: move this to hyprland config.
 }
