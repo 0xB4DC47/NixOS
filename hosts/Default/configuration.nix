@@ -58,6 +58,7 @@ in
     ../../modules/programs/misc/tlp
     ../../modules/programs/misc/thunar
     ../../modules/programs/misc/lact # GPU fan, clock and power configuration
+    ../../modules/programs/misc/mullvad
     ../../modules/programs/security/ghidra
     #../../modules/programs/security/ida
     #../../modules/programs/security/binja
