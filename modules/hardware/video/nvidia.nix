@@ -47,6 +47,13 @@ in
         nvidia-vaapi-driver
         libva-vdpau-driver
         libvdpau-va-gl
+        # Added to potentially fix bottles
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        vulkan-loader
       ];
     };
   };

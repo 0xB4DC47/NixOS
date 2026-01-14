@@ -183,6 +183,8 @@ in
                   "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
                   "${./scripts/batterynotify.sh}" # battery notification
                   #"${./scripts/autowaybar.sh}" # uncomment packages at the top
+
+                  "${./scripts/gamemode.sh}" # we want to run gamemode at startup. game mode will be default  
                   "polkit-agent-helper-1"
                   "pamixer --set-volume 100"
                 ];

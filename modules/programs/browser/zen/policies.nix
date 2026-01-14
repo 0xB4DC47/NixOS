@@ -131,15 +131,20 @@
     };
     "KeeperFFStoreExtension@KeeperSecurityInc" = {
       private_browsing = true;
+      default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/keeper-password-manager/latest.xpi";
-
-      override_shortcuts = {
-        "_execute_browser_action" = "Ctrl+Shift+K";
-      };
+    };
+    "{dedb3663-6f13-4c6c-bf0f-5bd111cb2c79}" = { # Zhongwen Extension
+      private_browsing = true;
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/zhongwen/latest.xpi";
     };
   };
   "3rdparty".Extensions = {
+    "{dedb3663-6f13-4c6c-bf0f-5bd111cb2c79}" = {
+      enabled = true;
+    };
     "addon@darkreader.org" = {
       enabled = true;
       automation = {

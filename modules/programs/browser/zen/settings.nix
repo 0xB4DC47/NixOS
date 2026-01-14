@@ -228,7 +228,8 @@ in
         "addon_darkreader_org-browser-action"
         "queryamoid_kaply_com-browser-action"
         "vimium-c@gdh1995.cn"
-        "KeeperFFStoreExtension@KeeperSecurityInc"
+        "{dedb3663-6f13-4c6c-bf0f-5bd111cb2c79}"
+        "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
       ];
       nav-bar = [
@@ -239,11 +240,9 @@ in
         # "developer-button"
         "downloads-button"
         "unified-extensions-button"
-
         # Extensions
-        "_c4b582ec-4343-438c-bda2-2f691c16c262_-browser-action"
-        #"firemonkey_eros_man-browser-action"
         "KeeperFFStoreExtension@KeeperSecurityInc"
+        #"firemonkey_eros_man-browser-action"
         # "addon_darkreader_org-browser-action"
         # "queryamoid_kaply_com-browser-action"
         # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"

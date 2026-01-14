@@ -106,7 +106,7 @@
 
             # Directory Shortcuts.
             dots = "cd ~/NixOS/";
-            # dev = "cd /mnt/work/dev/";
+            dev = "cd ~/Documents/projects/"
             # nixdir = "cd /mnt/work/dev/nix/";
             # cppdir = "cd /mnt/work/dev/C++/";
             # zigdir = "cd /mnt/work/dev/Zig/";

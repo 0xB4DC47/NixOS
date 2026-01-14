@@ -47,5 +47,6 @@ in
     };
   };
 
+  security.pam.services.sddm.u2fAuth = true; # TODO: move this to hyprland config.
   environment.systemPackages = sddmDependencies;
 }

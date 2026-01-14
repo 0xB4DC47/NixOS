@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url ="github:nixos/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
     #hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -21,14 +22,6 @@
     binaryninja = {
       url = "github:jchv/nix-binary-ninja";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-doom-emacs-unstraightened = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
-      inputs.nixpkgs.follows = ""; # Doesn't use nixpkgs
-    };
-    doom-config = {
-      url = "github:Sly-Harvey/doom";
-      flake = false;
     };
     nixvim = {
       url = "github:Sly-Harvey/nixvim";
