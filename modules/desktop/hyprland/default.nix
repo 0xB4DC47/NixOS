@@ -208,15 +208,15 @@ in
                 force_no_accel = true;
               };
               general = {
-                gaps_in = 4;
-                gaps_out = 8;
+                gaps_in = 2;
+                gaps_out = 6;
                 border_size = 3;
                 #"col.active_border" = "rgba(ca9ee6ff) rgba(f2d5cfff) 45deg";
                 #"col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
                 "col.active_border" = "rgba(ff00ffff) rgba(8800ffff) 45deg"; 
                 "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
                 resize_on_border = true;
-                layout = "dwindle"; # dwindle or master
+                layout = "master"; # dwindle or master
                 # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
               };
               decoration = {
@@ -306,7 +306,7 @@ in
                 preserve_split = true;
               };
               master = {
-                new_status = "master";
+                new_status = "slave";
                 new_on_top = true;
                 mfact = 0.5;
               };
@@ -341,13 +341,13 @@ in
                 "opacity 1.00 1.00,class:^(WebCord)$" # WebCord-Electron
                 #"opacity 0.80 0.70,class:^(Steam|steam|steamwebhelper)$"
                 "opacity 0.90 0.90,class:^(Spotify|spotify)$"
+                "opacity 0.90 0.90,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
                 "opacity 0.90 0.90,title:(.*)(Spotify)(.*)$"
                 "opacity 0.90 0.80,class:^(Emacs)$"
                 "opacity 0.90 0.80,class:^(gcr-prompter)$" # keyring prompt
                 "opacity 0.90 0.80,title:^(Hyprland Polkit Agent)$" # polkit prompt
                 "opacity 0.90 0.80,class:^(obsidian)$"
                 "opacity 0.90 0.80,class:^(Lutris|lutris|net.lutris.Lutris)$"
-                "opacity 0.80 0.70,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
                 "opacity 0.80 0.70,class:^(nvim-wrapper)$"
                 "opacity 0.80 0.70,class:^(gnome-disks)$"
                 "opacity 0.80 0.70,class:^(org.gnome.Nautilus|Thunar|thunar|pcmanfm)$"
@@ -373,14 +373,6 @@ in
                 "opacity 0.80 0.70,class:^(net.davidotek.pupgui2)$" # ProtonUp-Qt
                 "opacity 0.80 0.70,class:^(Signal)$" # Signal-Gtk
                 "opacity 0.80 0.70,class:^(io.gitlab.theevilskeleton.Upscaler)$" # Upscaler-Gtk
-
-                "opacity 0.80 0.70,class:^(pavucontrol)$"
-                "opacity 0.80 0.70,class:^(org.pulseaudio.pavucontrol)$"
-                "opacity 0.80 0.70,class:^(blueman-manager)$"
-                "opacity 0.80 0.70,class:^(.blueman-manager-wrapped)$"
-                "opacity 0.80 0.70,class:^(nm-applet)$"
-                "opacity 0.80 0.70,class:^(nm-connection-editor)$"
-                "opacity 0.80 0.70,class:^(org.kde.polkit-kde-authentication-agent-1)$"
 
                 # Block discord and browsers from screenshare/screenshots
                 # "noscreenshare,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
@@ -487,7 +479,7 @@ in
                   #"$mainMod, A, hyprexpo:expo, toggle" # toggle expo window zoomout
                   "$mainMod, SPACE, exec, launcher drun" # launch desktop applications
                   "$mainMod ALT, B, exec, launcher wallpaper" # launch wallpaper switcher
-                  "$mainMod, semi-colon, exec, launcher emoji" # launch emoji picker
+                  "$mainMod, period, exec, launcher emoji" # launch emoji picker
                   "$mainMod SHIFT, T, exec, launcher tmux" # launch tmux sessions
                   "$mainMod, G, exec, launcher games" # game launcher
                   # "$mainMod, tab, exec, launcher window" # switch between desktop applications
@@ -511,26 +503,26 @@ in
                   ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
                   ",XF86AudioMicMute,exec,pamixer --default-source -t" # mute mic
                   ",XF86AudioMute,exec,pamixer -t" # mute audio
-                    #",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
-                    #",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
-                    #",xf86AudioNext,exec,playerctl next" # go to next media
-                    #",xf86AudioPrev,exec,playerctl previous" # go to previous media
+                  ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
+                  ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
+                  ",xf86AudioNext,exec,playerctl next" # go to next media
+                  ",xf86AudioPrev,exec,playerctl previous" # go to previous media
 
-                  ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
-                  ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
-                  ",XF86AudioPlay,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
-                  ",XF86AudioPause,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
+                  # ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
+                  # ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
+                  # ",XF86AudioPlay,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
+                  # ",XF86AudioPause,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
 
                   # to switch between windows in a floating workspace
                   "$mainMod, Tab, cyclenext"
                   "$mainMod, Tab, bringactivetotop"
 
                   # Switch workspaces relative to the active workspace with mainMod + CTRL + [←→]
-                  "$mainMod CTRL, right, workspace, r+1"
-                  "$mainMod CTRL, left, workspace, r-1"
+                  "$mainMod ALT, right, workspace, r+1"
+                  "$mainMod ALT, left, workspace, r-1"
 
                   # move to the first empty workspace instantly with mainMod + CTRL + [↓]
-                  "$mainMod CTRL, down, workspace, empty"
+                  "$mainMod ALT, down, workspace, empty"
 
                   # Move focus with mainMod + arrow keys
                   "$mainMod, left, movefocus, l"
@@ -572,16 +564,16 @@ in
                   "$mainMod CTRL ALT, left, movetoworkspace, r-1"
 
                   # Move active window around current workspace with mainMod + SHIFT + CTRL [←→↑↓]
-                  "$mainMod SHIFT $CONTROL, left, movewindow, l"
-                  "$mainMod SHIFT $CONTROL, right, movewindow, r"
-                  "$mainMod SHIFT $CONTROL, up, movewindow, u"
-                  "$mainMod SHIFT $CONTROL, down, movewindow, d"
+                  "$mainMod $CONTROL, left, movewindow, l"
+                  "$mainMod $CONTROL, right, movewindow, r"
+                  "$mainMod $CONTROL, up, movewindow, u"
+                  "$mainMod $CONTROL, down, movewindow, d"
 
                   # Move active window around current workspace with mainMod + SHIFT + CTRL [HLJK]
-                  "$mainMod SHIFT $CONTROL, H, movewindow, l"
-                  "$mainMod SHIFT $CONTROL, L, movewindow, r"
-                  "$mainMod SHIFT $CONTROL, K, movewindow, u"
-                  "$mainMod SHIFT $CONTROL, J, movewindow, d"
+                  "$mainMod $CONTROL, H, movewindow, l"
+                  "$mainMod $CONTROL, L, movewindow, r"
+                  "$mainMod $CONTROL, K, movewindow, u"
+                  "$mainMod $CONTROL, J, movewindow, d"
 
                   # Special workspaces (scratchpad)
                   "$mainMod CTRL, S, movetoworkspacesilent, special"

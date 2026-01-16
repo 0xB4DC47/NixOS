@@ -22,7 +22,7 @@ in
             gtk-layer-shell = true;
             ipc = true;
             fixed-center = true;
-            margin-top = 10;
+            margin-top = 5;
             margin-left = 10;
             margin-right = 10;
             margin-bottom = 0;
