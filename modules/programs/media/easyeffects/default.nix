@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
-  services.easyeffects = {
-    enable = true;
-  };
+  home-manager.sharedModules = [
+    ({ ... }: {
+      services.easyeffects = {
+        enable = true;
+      };
+      })
+    ];
 }
+
