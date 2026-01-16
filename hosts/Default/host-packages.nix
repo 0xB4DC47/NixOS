@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   environment.systemPackages = with pkgs; [
     obsidian
@@ -6,6 +6,7 @@
     protonvpn-gui # VPN
     github-desktop
     ripgrep
-    # pokego # Overlayed
+    pokego # Overlayed
+    inputs.nixCats.packages.${stdenv.hostPlatform.system}.nixCats
   ];
 }

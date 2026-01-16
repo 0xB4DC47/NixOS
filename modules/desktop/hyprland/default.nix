@@ -165,10 +165,12 @@ in
                   wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { inherit defaultWallpaper; };
                 in
                 [
-                  "[workspace 1 silent] ${terminal}"
+                  #"[workspace 1 silent] ${terminal}"
+                  "[workspace 1 silent] $term -e tmux new-session -A -s main"
                   "[workspace 5 silent] ${browser}"
-                  "[workspace 10 silent] vesktop" # discord 
-                  #"[workspace 6 silent] spotify"
+                  #"[workspace 10 silent] vesktop" # discord 
+                  "[workspace 10 silent] discord" # discord 
+                  "[workspace 7 silent] spotify"
                   #"[workspace special silent] ${browser} --private-window"
                   #"[workspace special silent] ${terminal}"
 
@@ -183,10 +185,11 @@ in
                   "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
                   "${./scripts/batterynotify.sh}" # battery notification
                   #"${./scripts/autowaybar.sh}" # uncomment packages at the top
-
-                  "${./scripts/gamemode.sh}" # we want to run gamemode at startup. game mode will be default  
+                  "mullvad-vpn"
+                  "fcitx"
                   "polkit-agent-helper-1"
                   "pamixer --set-volume 100"
+                  "${./scripts/gamemode.sh}" # we want to run gamemode at startup. game mode will be default  
                 ];
               input = {
                 kb_layout = "${kbdLayout}";
@@ -508,15 +511,15 @@ in
                   ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
                   ",XF86AudioMicMute,exec,pamixer --default-source -t" # mute mic
                   ",XF86AudioMute,exec,pamixer -t" # mute audio
-                  ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
-                  ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
-                  ",xf86AudioNext,exec,playerctl next" # go to next media
-                  ",xf86AudioPrev,exec,playerctl previous" # go to previous media
+                    #",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
+                    #",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
+                    #",xf86AudioNext,exec,playerctl next" # go to next media
+                    #",xf86AudioPrev,exec,playerctl previous" # go to previous media
 
-                  # ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
-                  # ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
-                  # ",XF86AudioPlay,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
-                  # ",XF86AudioPause,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
+                  ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
+                  ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
+                  ",XF86AudioPlay,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
+                  ",XF86AudioPause,exec,${./scripts/MediaCtrl.sh} play-pause" # go to next media
 
                   # to switch between windows in a floating workspace
                   "$mainMod, Tab, cyclenext"

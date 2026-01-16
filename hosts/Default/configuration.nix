@@ -53,6 +53,7 @@ in
     ../../modules/programs/electronics/kicad
     # ../../modules/programs/media/youtube-music
     #../../modules/programs/media/thunderbird
+    ../../modules/programs/media/easyeffects
     ../../modules/programs/media/obs-studio
     ../../modules/programs/media/mpv
     ../../modules/programs/misc/tlp

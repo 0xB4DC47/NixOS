@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url ="github:nixos/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
     #hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -30,6 +29,10 @@
     neovim = {
       url = "github:Sly-Harvey/nvim";
       flake = false;
+    };
+    nixCats = {
+      url = "github:0xB4DC47/nixcats";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -79,11 +82,12 @@
       mkHost =
         host:
         nixpkgs.lib.nixosSystem {
-          # inherit system;
+          #inherit system;
           system = forAllSystems (system: system);
           modules = [
             ./hosts/${host}/configuration.nix
             binaryninja.nixosModules.binaryninja
+            inputs.home-manager.nixosModules.home-manager
           ];
           specialArgs = {
             overlays = import ./overlays { inherit inputs host; };
