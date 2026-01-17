@@ -171,6 +171,7 @@ in
                   #"[workspace 10 silent] vesktop" # discord 
                   "[workspace 10 silent] discord" # discord 
                   "[workspace 7 silent] spotify"
+                  "[workspace stash silent ${terminal}"
                   #"[workspace special silent] ${browser} --private-window"
                   #"[workspace special silent] ${terminal}"
 
@@ -216,7 +217,7 @@ in
                 "col.active_border" = "rgba(ff00ffff) rgba(8800ffff) 45deg"; 
                 "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
                 resize_on_border = true;
-                layout = "master"; # dwindle or master
+                layout = "dwindle"; # dwindle or master
                 # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
               };
               decoration = {
@@ -304,6 +305,7 @@ in
               dwindle = {
                 pseudotile = true;
                 preserve_split = true;
+                force_split = 2; # New windows always split to the right/bottom
               };
               master = {
                 new_status = "slave";
@@ -451,7 +453,8 @@ in
                   "$mainMod, F10, exec, pkill hyprsunset"
 
                   # Window/Session actions
-                  "$mainMod, W, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+                  #"$mainMod, W, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
+                  "$mainMod, W, exec, ${./scripts/hypr-confirm-close.sh}" # killactive, kill the window on focus
                   "$mainMod SHIFT, W, exec, ${./scripts/wipe-workspace.sh}"
                   "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
                   "$mainMod CTRL ALT, delete, exit" # kill hyprland session
@@ -461,7 +464,7 @@ in
                   "$mainMod, F, fullscreen" # toggle the window on focus to fullscreen
                   "$mainMod ALT, L, exec, hyprlock" # lock screen
                   "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-                  "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+                  "$CONTROL, ESCAPE, exec, killall -SIGUSR1 waybar || waybar" # toggle waybar
 
                   # Hypr
 
@@ -486,6 +489,8 @@ in
                   # "$mainMod, R, exec, launcher file" # brrwse system files
                   "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
                   "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
+                  "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
+                  "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
                   "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
                   "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
                   "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
@@ -538,6 +543,8 @@ in
                   #"$mainMod, Y, exec, hprctl keybword general:layout 'float'"
                   #"$mainMod SHIFT, Y, exec hyprctl keybword general:layout 'dwindle'"
 
+                  "$mainMod CTRL, Space, togglesplit" # Change horizontal split to vertical and vice-versa
+
                   # Move focus with mainMod + HJKL keys
                   "$mainMod, h, movefocus, l"
                   "$mainMod, l, movefocus, r"
@@ -579,6 +586,9 @@ in
                   "$mainMod CTRL, S, movetoworkspacesilent, special"
                   "$mainMod ALT, S, movetoworkspacesilent, special"
                   "$mainMod, S, togglespecialworkspace,"
+                  "$mainMod, Q, togglespecialworkspace, stash"
+                  "$mainMod CTRL, Q, movetoworkspacesilent, special:stash"
+                  "$mainMod ALT, Q, movetoworkspacesilent, special:stash"
                 ]
                 ++ (builtins.concatLists (
                   builtins.genList (
@@ -624,8 +634,6 @@ in
                 # Fallback for any other monitors
                 ",preferred,auto,1"
 
-                # Left monitor - BenQ GW2490 (vertical/portrait mode)
-                # Serial: F3S0291101Q, transform 1 = 90° rotation
                 #"desc:BNQ BenQ GW2490 F3S0291101Q,preferred,0x0,1,transform,1"
                 #"DP-5,1080x1920@60, 0x0, 1, transform,1"
                 #"DP-5,preferred, 0x0, 1, transform,1"
