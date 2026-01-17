@@ -100,6 +100,25 @@ pkgs.writeShellScriptBin "launcher" ''
 
     rofi -show games -modi games -theme "''${rofi_theme}" -theme-str "$r_override"
     ;;
+  confirm)
+    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/confirm-close.rasi"
+    
+    # Use actual symbols for better font compatibility
+    choice=$(echo -e "✔ Yes\n✘ No" | rofi -dmenu \
+      -i \
+      -no-show-icons \
+      -p "Confirmation" \
+      -mesg "Are you sure?" \
+      -theme "$rofi_theme" \
+      -selected-row 1 \
+      -kb-accept-entry "Return" \
+      -me-select-entry "" \
+      -me-accept-entry "MousePrimary")
+    
+    if [[ "$choice" == *"Yes"* ]]; then
+      /etc/nixos/modules/desktop/hyprland/scripts/dontkillsteam.sh
+    fi
+    ;;
   help | --help | -h)
     echo "Usage: launcher [ACTION]"
     echo "Launch various rofi modes with custom themes and settings."

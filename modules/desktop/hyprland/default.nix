@@ -454,7 +454,8 @@ in
 
                   # Window/Session actions
                   #"$mainMod, W, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
-                  "$mainMod, W, exec, ${./scripts/hypr-confirm-close.sh}" # killactive, kill the window on focus
+                    #"$mainMod, W, exec, ${./scripts/hypr-confirm-close.sh}" # killactive, kill the window on focus
+                  "$mainMod, W, exec, launcher confirm" # killactive, kill the window on focus
                   "$mainMod SHIFT, W, exec, ${./scripts/wipe-workspace.sh}"
                   "ALT, F4, exec, ${./scripts/dontkillsteam.sh}" # killactive, kill the window on focus
                   "$mainMod CTRL ALT, delete, exit" # kill hyprland session
@@ -464,7 +465,7 @@ in
                   "$mainMod, F, fullscreen" # toggle the window on focus to fullscreen
                   "$mainMod ALT, L, exec, hyprlock" # lock screen
                   "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 4" # logout menu
-                  "$CONTROL, ESCAPE, exec, killall -SIGUSR1 waybar || waybar" # toggle waybar
+                  "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
 
                   # Hypr
 

@@ -1,0 +1,62 @@
+/** Import your existing variables **/
+@import "type-2/shared/colors.rasi"
+@import "type-2/shared/fonts.rasi"
+
+window {
+    width:            300px;
+    padding:          20px;
+    border:           2px;
+    border-radius:    12px;
+    location:         center;
+    anchor:           center;
+    background-color: @background;
+}
+
+mainbox {
+    enabled:          true;
+    background-color: transparent;
+    children:         [ "message", "listview" ];
+}
+
+message {
+    enabled:          true;
+    margin:           0px 0px 15px 0px;
+    background-color: transparent;
+}
+
+textbox {
+    horizontal-align: 0.5;
+    background-color: transparent;
+    text-color:       @foreground; /* Ensures "Are you sure?" is white/fg */
+}
+
+listview {
+    enabled:          true;
+    lines:            2;
+    columns:          1;
+    fixed-height:     true;
+    scrollbar:        false;
+    spacing:          10px;
+    background-color: transparent;
+}
+
+element {
+    enabled:          true;
+    padding:          10px;
+    border-radius:    8px;
+    background-color: @background-alt;
+    text-color:       @foreground; /* Forces 'Yes/No' to be white/fg by default */
+    cursor:           pointer;
+}
+
+element selected.normal {
+    background-color: @selected;   /* Your blue background */
+    text-color:       @background;  /* Makes text dark/readable on blue bg */
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;      /* Now safely inherits @foreground or @background */
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+}
