@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url ="github:nixos/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
+    neovim.url = "path:./modules/programs/editor/neovim"
     #hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -25,10 +26,6 @@
     nixvim = {
       url = "github:Sly-Harvey/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    neovim = {
-      url = "github:Sly-Harvey/nvim";
-      flake = false;
     };
     nixCats = {
       url = "github:0xB4DC47/nixcats";
