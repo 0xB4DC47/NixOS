@@ -336,6 +336,7 @@ in
                 # "workspace 5, class:^(firefox|floorp|zen|zen-beta)$"
                 # "workspace 6, class:^(Spotify)$"
                 # "workspace 6, title:(.*)(Spotify)(.*)$"
+                "workspace 10, class:(discord)"
 
                 # Can use FLOAT FLOAT for active and inactive or just FLOAT
                 "opacity 1.00 1.00,class:^(firefox|Brave-browser|floorp|zen|zen-beta)$"
