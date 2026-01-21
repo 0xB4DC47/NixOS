@@ -300,6 +300,8 @@ in
                 ];
               };
               cursor = {
+                no_hardware_cursors = false;
+                #allow_dumb_copy = true;
                 inactive_timeout = 1;
               };
               dwindle = {

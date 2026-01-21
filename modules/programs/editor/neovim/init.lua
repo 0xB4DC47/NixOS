@@ -1,117 +1,167 @@
--- NOTE: init.lua gets ran before anything else.
+return {
+  "nvim-lua/plenary.nvim",
 
--- NOTE: These 2 need to be set up before any plugins are loaded.
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+  {
+    "nvchad/base46",
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
 
--- [[ Setting options ]]
--- See `:help vim.o`
+  {
+    "nvchad/ui",
+    lazy = false,
+    config = function()
+      require "nvchad"
+    end,
+  },
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+  "nvzone/volt",
+  "nvzone/menu",
+  { "nvzone/minty", cmd = { "Huefy", "Shades" } },
 
--- Set highlight on search
-vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = function()
+      dofile(vim.g.base46_cache .. "devicons")
+      return { override = require "nvchad.icons.devicons" }
+    end,
+  },
 
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "User FilePost",
+    opts = {
+      indent = { char = "│", highlight = "IblChar" },
+      scope = { char = "│", highlight = "IblScopeChar" },
+    },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "blankline")
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+      local hooks = require "ibl.hooks"
+      hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+      require("ibl").setup(opts)
 
--- Make line numbers default
-vim.wo.number = true
+      dofile(vim.g.base46_cache .. "blankline")
+    end,
+  },
 
--- Enable mouse mode
-vim.o.mouse = 'a'
+  -- file managing , picker etc
+  {
+    "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    opts = function()
+      return require "nvchad.configs.nvimtree"
+    end,
+  },
 
--- Indent
--- vim.o.smarttab = true
-vim.opt.cpoptions:append('I')
-vim.o.expandtab = true
--- vim.o.smartindent = true
--- vim.o.autoindent = true
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+    cmd = "WhichKey",
+    opts = function()
+      dofile(vim.g.base46_cache .. "whichkey")
+      return {}
+    end,
+  },
 
--- stops line wrapping from being confusing
-vim.o.breakindent = true
+  -- formatting!
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = { lua = { "stylua" } },
+    },
+  },
 
--- Save undo history
-vim.o.undofile = true
+  -- git stuff
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "User FilePost",
+    opts = function()
+      return require "nvchad.configs.gitsigns"
+    end,
+  },
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+  -- lsp stuff
+  {
+    "mason-org/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
+    opts = function()
+      return require "nvchad.configs.mason"
+    end,
+  },
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-vim.wo.relativenumber = true
+  {
+    "neovim/nvim-lspconfig",
+    event = "User FilePost",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+    end,
+  },
 
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+  -- load luasnips + cmp related in insert mode only
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      {
+        -- snippet plugin
+        "L3MON4D3/LuaSnip",
+        dependencies = "rafamadriz/friendly-snippets",
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("luasnip").config.set_config(opts)
+          require "nvchad.configs.luasnip"
+        end,
+      },
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,preview,noselect'
+      -- autopairing of (){}[] etc
+      {
+        "windwp/nvim-autopairs",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "TelescopePrompt", "vim" },
+        },
+        config = function(_, opts)
+          require("nvim-autopairs").setup(opts)
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+          -- setup cmp for autopairs
+          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+      },
 
-vim.g.netrw_liststyle=0
-vim.g.netrw_banner=0
--- [[ Disable auto comment on enter ]]
--- See :help formatoptions
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "remove formatoptions",
-  callback = function()
-    vim.opt.formatoptions:remove({ "c", "r", "o" })
-  end,
-})
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
+      -- cmp sources plugins
+      {
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+       "https://codeberg.org/FelipeLema/cmp-async-path.git",
+      },
+    },
+    opts = function()
+      return require "nvchad.configs.cmp"
+    end,
+  },
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Moves Line Down' })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Moves Line Up' })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll Down' })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll Up' })
-vim.keymap.set("n", "n", "nzzzv", { desc = 'Next Search Result' })
-vim.keymap.set("n", "N", "Nzzzv", { desc = 'Previous Search Result' })
-vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = 'Previous buffer' })
-vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = 'Next buffer' })
-vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = 'Last buffer' })
-vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = 'delete buffer' })
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "Telescope",
+    opts = function()
+      return require "nvchad.configs.telescope"
+    end,
+  },
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate | TSInstallAll",
+    opts = function()
+      return require "nvchad.configs.treesitter"
+    end,
+  },
+}
 
--- Diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
--- Sync clipboard between OS and Neovim.
--- But it constantly clobbers your system clipboard whenever you delete anything.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
--- You should instead use these keybindings to use the clipboard so that they are still easy to use, but dont conflict
-vim.keymap.set({"v", "x", "n"}, '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Yank to clipboard' })
-vim.keymap.set({"n", "v", "x"}, '<leader>Y', '"+yy', { noremap = true, silent = true, desc = 'Yank line to clipboard' })
-vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p', { noremap = true, silent = true, desc = 'Paste from clipboard' })
-vim.keymap.set('i', '<C-p>', '<C-r><C-p>+', { noremap = true, silent = true, desc = 'Paste from clipboard from within insert mode' })
-vim.keymap.set("x", "<leader>P", '"_dP', { noremap = true, silent = true, desc = 'Paste over selection without erasing unnamed register' })

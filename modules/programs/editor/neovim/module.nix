@@ -63,6 +63,7 @@ inputs:
     conform-nvim
     nvim-dap-ui
     nvim-dap-virtual-text
+    nvim-tree-lua
     # building a plugin from a source outside of nixpkgs
     (config.nvim-lib.mkPlugin "treesitter-textobjects" inputs.nvim-treesitter-textobjects)
     # treesitter + grammars

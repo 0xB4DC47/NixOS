@@ -8,5 +8,7 @@
     ripgrep
     pokego # Overlayed
     inputs.nixCats.packages.${stdenv.hostPlatform.system}.nixCats
+    inputs.neovim.packages.${stdenv.hostPlatform.system}.neovim
+    gnome-calculator
   ];
 }
