@@ -120,6 +120,6 @@ inputs:
   # config.settings.dont_link = true;
 
   # and make sure these dont share values:
-  # config.binName = "nvim";
-  # config.settings.aliases = [ ];
+  config.binName = "mynvim";
+  config.settings.aliases = [ "wrapper-nvim" ];
 }

@@ -38,21 +38,23 @@
         args = [
           "--rt"
           "--expose-wayland"
-          # "--immediate-flips" # Tearing and low input lag
-          #"--adaptive-sync"  # G-Sync/FreeSync
+          "--immediate-flips" # Tearing and low input lag
+          "--adaptive-sync"  # G-Sync/FreeSync
         ];
       };
     };
     gamescope = {
       enable = true;
-      capSysNice = true;
+      #capSysNice = true; # original
+      capSysNice = false; 
       package = pkgs.gamescope;
       args = [
         "--rt"
         "--expose-wayland"
+        "-r 144"
 
         # experimental
-        # "--immediate-flips"
+        "--immediate-flips"
       ];
     };
   };
@@ -76,9 +78,9 @@
             60
           ];
           fps_limit_method = "late"; # late = low input lag but less smooth, early = more smooth
-          vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
-          #gl_vsync = 1; # original # https://github.com/flightlessmango/MangoHud#vsync
-          gl_vsync = 0; # https://github.com/flightlessmango/MangoHud#vsync
+          vsync = 2; # original # https://github.com/flightlessmango/MangoHud#vsync
+          gl_vsync = 1; # original # https://github.com/flightlessmango/MangoHud#vsync
+          # gl_vsync = 0; # https://github.com/flightlessmango/MangoHud#vsync
           # testing for gl_vsync: 1.045
 
           # keybinds

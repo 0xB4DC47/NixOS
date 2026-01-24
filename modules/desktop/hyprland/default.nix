@@ -279,7 +279,7 @@ in
                 ];
               };
               render = {
-                direct_scanout = 0; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
+                direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
               };
               ecosystem = {
                 no_update_news = true;
@@ -291,7 +291,7 @@ in
                 swallow_regex = "^(Alacritty|kitty)$";
                 enable_swallow = true;
                 vfr = true; # always keep on
-                vrr = 2; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
+                vrr = 3; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
               };
               xwayland.force_zero_scaling = true; # setting to true to hopefully fix uni2 resolution issue
               gestures = {
@@ -635,9 +635,6 @@ in
               #   - HDMI-A-2 (1920x1080): x=3640 (1080+2560)
               # =============================================================
               monitor = [
-                # Fallback for any other monitors
-                ",preferred,auto,1"
-
                 #"desc:BNQ BenQ GW2490 F3S0291101Q,preferred,0x0,1,transform,1"
                 #"DP-5,1080x1920@60, 0x0, 1, transform,1"
                 #"DP-5,preferred, 0x0, 1, transform,1"
@@ -655,9 +652,12 @@ in
                 #"HDMI-A-2,preferred,3640x0,1"
 
                 "desc:BNQ BenQ GW2490 ETGAR02706SL0,1920x1080@100.0,3640x367,1.0"
-                "desc:Dell Inc. Dell S2417DG ##ASP3oRncBhPd,2560x1440@144.0,1080x220,1.0, vrr, 0"
+                "desc:Dell Inc. Dell S2417DG ##ASP3oRncBhPd,2560x1440@144.0,1080x220,1.0"
                 "desc:BNQ BenQ GW2490 F3S0291101Q,1920x1080@100.0,0x0,1.0"
                 "desc:BNQ BenQ GW2490 F3S0291101Q,transform,1"
+                
+                # Fallback for any other monitors
+                ",preferred,auto,1"
               ];
               # =============================================================
               # WORKSPACE CONFIGURATION - Updated for your monitors
