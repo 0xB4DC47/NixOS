@@ -218,7 +218,7 @@ in
                 "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
                 resize_on_border = true;
                 layout = "dwindle"; # dwindle or master
-                # allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
+                allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
               };
               decoration = {
                 shadow.enabled = false;
@@ -253,7 +253,6 @@ in
 
               animations = {
                 enabled = true;
-                #enabled = false;
                 bezier = [
                   "linear, 0, 0, 1, 1"
                   "md3_standard, 0.2, 0, 0, 1"
