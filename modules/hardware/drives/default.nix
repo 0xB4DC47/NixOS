@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./games.nix
-    ./work.nix
+    #./games.nix
+    #`q./work.nix
   ];
 }

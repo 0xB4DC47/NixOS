@@ -39,7 +39,7 @@
           "--rt"
           "--expose-wayland"
           # "--immediate-flips" # Tearing and low input lag
-          "--adaptive-sync"  # G-Sync/FreeSync
+          #"--adaptive-sync"  # G-Sync/FreeSync
         ];
       };
     };
@@ -69,15 +69,16 @@
         settings = {
           no_display = true; # Hide hud by default (Show by holding right-shift then press F12)
           fps_limit = [
-            60
             0
-            144
-            165
             240
+            165
+            144
+            60
           ];
           fps_limit_method = "late"; # late = low input lag but less smooth, early = more smooth
           vsync = 2; # https://github.com/flightlessmango/MangoHud#vsync
-          gl_vsync = 1; # https://github.com/flightlessmango/MangoHud#vsync
+          #gl_vsync = 1; # original # https://github.com/flightlessmango/MangoHud#vsync
+          gl_vsync = 0; # https://github.com/flightlessmango/MangoHud#vsync
           # testing for gl_vsync: 1.045
 
           # keybinds
@@ -85,7 +86,7 @@
           # toggle_hud_position="Shift_R+F11";
           toggle_fps_limit = "Shift_R+F1";
           # toggle_logging="Shift_L+F2";
-          # reload_cfg="Shift_L+F4";
+          reload_cfg="Shift_R+F4";
           # upload_log="Shift_L+F3";
 
           # SYSTEM
