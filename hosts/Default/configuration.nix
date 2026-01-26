@@ -66,4 +66,15 @@ in
 
   ]
   ++ lib.optional (vars.games == true) ../../modules/core/games.nix;
+
+
+  boot.initrd.systemd.enable = true;
+
+  boot.initrd.luks.devices."luks-storage" = {
+    device = "/dev/disk/by-uuid/953ae8e7-75da-4255-9cd4-ebff324b6e2d";
+    preLVM = true;
+    crypttabExtraOpts = [ "fido2-device=auto" "tpm2-device=auto" ];
+  };
+
+  boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" ]
 }

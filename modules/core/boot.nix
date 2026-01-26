@@ -41,11 +41,15 @@ in
           installPhase = "cp -r customize/nixos $out";
         };
       };
+      systemd-boot.enable = lib.mkForce false;
     };
 
     lanzaboote = lib.mkIf (vars.secureBoot) {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
+      autoGenerateKeys = {
+        enable = true;
+      };
       autoEnrollKeys = {
         enable = true;
         autoReboot = true;
