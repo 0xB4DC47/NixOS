@@ -72,7 +72,7 @@ in
   boot.initrd.luks.devices."luks-root" = {
     device = "/dev/disk/by-uuid/953ae8e7-75da-4255-9cd4-ebff324b6e2d";
     preLVM = true;
-    crypttabExtraOpts = [ "tpm2-device=auto" ];
+    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure=no"];
   };
 
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" ];
