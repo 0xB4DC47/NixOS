@@ -45,13 +45,12 @@
     };
     gamescope = {
       enable = true;
-      capSysNice = true; # original
-      # capSysNice = false; 
+      # capSysNice = true; # original
+      capSysNice = false; 
       package = pkgs.gamescope;
       args = [
         "--rt"
         "--expose-wayland"
-        "-r 144"
 
         # experimental
         "--immediate-flips"

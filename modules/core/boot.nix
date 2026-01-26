@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, host, lib, ... }:
+let
+  vars = import ../../hosts/${host}/variables.nix;
+in 
 {
   boot = {
     # Filesystems support
@@ -19,7 +22,8 @@
       efi.efiSysMountPoint = "/boot";
       timeout = null; # Display bootloader indefinitely until user selects OS
       grub = {
-        enable = true;
+        #enable = true;
+        enable = if vars.secureBoot then false else true;
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
@@ -38,6 +42,16 @@
         };
       };
     };
+
+    lanzaboote = lib.mkIf (vars.secureBoot) {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+      };
+    };
+
     # Appimage Support
     binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
@@ -48,4 +62,8 @@
       magicOrExtension = ''\x7fELF....AI\x02'';
     };
   };
+  environment.systemPackages = lib.optionals (vars.secureBoot) [
+    pkgs.sbctl
+    pkgs.tpm2-tools
+  ];
 }

@@ -4,6 +4,8 @@
   # Desktop Environment
   desktop = "hyprland"; # hyprland, i3, gnome, plasma6
 
+  secureBoot = true;
+
   # Theme & Appearance
   waybarTheme = "minimal"; # stylish, minimal
   sddmTheme = "hyprland_kath"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath

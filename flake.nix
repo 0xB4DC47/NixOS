@@ -19,6 +19,10 @@
     #  url = "github:hyprwm/hyprland-plugins";
     #  inputs.hyprland.follows = "hyprland";
     #};
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     binaryninja = {
       url = "github:jchv/nix-binary-ninja";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +71,7 @@
       self,
       nixpkgs,
       binaryninja,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -84,6 +89,7 @@
           modules = [
             ./hosts/${host}/configuration.nix
             binaryninja.nixosModules.binaryninja
+            lanzaboote.nixosModules.lanzaboote
             inputs.home-manager.nixosModules.home-manager
           ];
           specialArgs = {
