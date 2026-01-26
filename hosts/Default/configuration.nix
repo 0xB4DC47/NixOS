@@ -69,7 +69,7 @@ in
 
   boot.initrd.systemd.enable = true;
 
-  boot.initrd.luks.devices."luks-storage" = {
+  boot.initrd.luks.devices."luks-root" = {
     device = "/dev/disk/by-uuid/953ae8e7-75da-4255-9cd4-ebff324b6e2d";
     preLVM = true;
     crypttabExtraOpts = [ "tpm2-device=auto" ];
