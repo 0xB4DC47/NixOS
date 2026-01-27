@@ -218,7 +218,7 @@ in
                 "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
                 resize_on_border = true;
                 layout = "dwindle"; # dwindle or master
-                allow_tearing = false; # we let mangohud and gamescope handle tearing # Allow tearing for games (use immediate window rules for specific games or all titles)
+                allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
               };
               decoration = {
                 shadow.enabled = false;
@@ -278,6 +278,7 @@ in
                 ];
               };
               render = {
+                # direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
                 direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
               };
               ecosystem = {
@@ -290,7 +291,7 @@ in
                 swallow_regex = "^(Alacritty|kitty)$";
                 enable_swallow = true;
                 vfr = true; # always keep on
-                vrr = 3; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
+                vrr = 0; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
               };
               xwayland.force_zero_scaling = true; # setting to true to hopefully fix uni2 resolution issue
               gestures = {
