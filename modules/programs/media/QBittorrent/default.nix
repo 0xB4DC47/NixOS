@@ -7,8 +7,8 @@
       ];
       xdg.configFile."qBittorrent/qBittorrent.conf".text = ''
         [BitTorrent]
-        Session\Interface=mullvad
-        Session\InterfaceName=mullvad
+        Session\Interface=wg0-mullvad
+        Session\InterfaceName=wg0-mullvad
       '';
     })
   ];

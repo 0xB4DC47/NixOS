@@ -10,5 +10,7 @@
     #inputs.nixCats.packages.${stdenv.hostPlatform.system}.nixCats
     inputs.neovim.packages.${stdenv.hostPlatform.system}.neovim
     gnome-calculator
+    inputs.llm-agents.packages.${stdenv.hostPlatform.system}.claude-code
+    audacity
   ];
 }

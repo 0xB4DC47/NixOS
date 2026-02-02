@@ -63,6 +63,7 @@ in
     ../../modules/programs/security/ghidra
     #../../modules/programs/security/ida
     #../../modules/programs/security/binja
+    ../../modules/programs/media/QBittorrent
 
   ]
   ++ lib.optional (vars.games == true) ../../modules/core/games.nix;
