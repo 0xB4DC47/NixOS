@@ -68,7 +68,7 @@
           }
         ];
       };
-    };
+    }
     adguardhome = {
       enable = true;
       host = "0.0.0.0";
@@ -80,7 +80,7 @@
           address = "127.0.0.1:3005";
         };
         dns = {
-          bind_host = "0.0.0.0";
+          bind_host = "127.0.0.1";
           bind_port = 53;
           upstream_dns = [ "127.0.0.1:5335" ];
           bootstrap_dns = [ "127.0.0.1:5335" ];

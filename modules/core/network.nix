@@ -12,6 +12,9 @@ in
     #   noProxy = "127.0.0.1,localhost,internal.domain";
     # };
 
+    nameservers = [ "127.0.0.1" ];
+    networkmanager.dns = "none";
+
     firewall = {
       enable = true;
       allowedTCPPorts = [
