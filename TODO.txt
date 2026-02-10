@@ -1,21 +1,11 @@
-- [ ] Make improvements to the tmux meta+shift+T command to also be able to launch new tmux session or kill existing ones
-- [ ] Install a Qobuz player
+- [x] Make improvements to the tmux meta+shift+T command to also be able to launch new tmux session or kill existing ones
+- [x] Install a Qobuz player
 - [ ] Figure out Tmux keybinds
 - [ ] Fix the nixvim keybinds and config
 - [x] install browser extensions of choice
-- [ ] finalize the hyprland keybinds
-- [ ] add keeper to zen browser extension bar 
-- [ ] add yubikey support for git and user sign in
-- [ ] figure out why firefox is auto-opening on startup
-
-Key	Combo	Action	Logic
-Backspace	SUPER + BS	wlogout	Destructive / Final
-W	SUPER + W	killactive	Close (Matches Ctrl+W)
-W	SUPER + ALT + W	pin	Sticky / PiP
-Y	SUPER + Y	float layout	Pop!_OS "Easy Mode"
-Q	SUPER + Q	easyfocus	Vim-style window picker
-Tab	SUPER + Tab	cyclenext	Global Switch
-Tab	ALT + Tab	group cycle	Stack Switch
-G	SUPER + G	Steam/Games	Gaming
-G	SUPER + ALT + G	togglegroup	Create Stack
-Space	SUPER + Space	Rofi/Launcher	App Launching
+- [x] finalize the hyprland keybinds
+- [x] add keeper to zen browser extension bar 
+- [x] add yubikey support for git and user sign in
+- [x] figure out why firefox is auto-opening on startup
+- [ ] fix the music player shortcut
+- [ ] 
