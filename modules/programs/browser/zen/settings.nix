@@ -9,6 +9,7 @@ let
   };
 in
 {
+  "zen.window-sync.prefer-unsynced-windows" = true;
   "zen.view.use-single-toolbar" = false;
   "zen.view.sidebar-expanded" = false;
 
