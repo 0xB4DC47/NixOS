@@ -53,6 +53,7 @@ in
         "input"
         "networkmanager"
         "video"
+        "uinput"
         "audio"
         "libvirtd"
         "kvm"

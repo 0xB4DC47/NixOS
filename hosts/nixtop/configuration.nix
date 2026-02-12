@@ -28,6 +28,7 @@ in
     ../../modules/core/users.nix
     ../../modules/core/flatpak.nix
     ../../modules/core/virtualisation.nix
+    ../../modules/core/key_mods.nix
     # ../../modules/core/dlna.nix
 
     # Optional
@@ -70,10 +71,10 @@ in
 
   boot.initrd.systemd.enable = true;
 
-  boot.initrd.luks.devices."luks-root" = {
-    preLVM = true;
-    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure=no"];
-  };
-
-  boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" ];
+  # boot.initrd.luks.devices."luks-root" = {
+  #   preLVM = true;
+  #   crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure=no"];
+  # };
+  #
+  # boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" ];
 }
