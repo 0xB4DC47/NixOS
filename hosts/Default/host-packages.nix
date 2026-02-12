@@ -12,5 +12,7 @@
     gnome-calculator
     inputs.llm-agents.packages.${stdenv.hostPlatform.system}.claude-code
     audacity
+    signal-desktop
+    libreoffice-qt-fresh
   ];
 }

@@ -168,6 +168,7 @@ in
                   #"[workspace 1 silent] ${terminal}"
                   "[workspace 1 silent] $term -e tmux new-session -A -s main"
                   "[workspace 5 silent] ${browser}"
+                  "[workspace 3 silent] steam"
                   #"[workspace 10 silent] vesktop" # discord 
                   "[workspace 10 silent] discord" # discord 
                   "[workspace 7 silent] spotify"
@@ -334,7 +335,7 @@ in
                 # "workspace 3, title:(.*)(Godot)(.*)$"
                 # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
                 # "workspace 3, class:^(factorio)$"
-                # "workspace 3, class:^(steam)$"
+                "workspace 3, class:^(steam)$"
                 # "workspace 5, class:^(firefox|floorp|zen|zen-beta)$"
                 # "workspace 6, class:^(Spotify)$"
                 # "workspace 6, title:(.*)(Spotify)(.*)$"
