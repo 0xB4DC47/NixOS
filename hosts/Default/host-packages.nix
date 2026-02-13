@@ -14,5 +14,6 @@
     audacity
     signal-desktop
     libreoffice-qt-fresh
+    gnome-text-editor
   ];
 }

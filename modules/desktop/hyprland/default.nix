@@ -217,7 +217,7 @@ in
                 #"col.inactive_border" = "rgba(b4befecc) rgba(6c7086cc) 45deg";
                 "col.active_border" = "rgba(ff00ffff) rgba(8800ffff) 45deg"; 
                 "col.inactive_border" = "rgba(595959aa)"; # Dimmer inactive border
-                resize_on_border = true;
+                resize_on_border = false;
                 layout = "dwindle"; # dwindle or master
                 allow_tearing = true; # Allow tearing for games (use immediate window rules for specific games or all titles)
               };
