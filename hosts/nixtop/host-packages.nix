@@ -15,5 +15,6 @@
     signal-desktop
     libreoffice-qt-fresh
     gnome-text-editor
+    ani-cli
   ];
 }

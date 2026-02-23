@@ -188,7 +188,7 @@ in
                   "${./scripts/batterynotify.sh}" # battery notification
                   #"${./scripts/autowaybar.sh}" # uncomment packages at the top
                   "mullvad-vpn"
-                  "fcitx"
+                  "fcitx5"
                   "polkit-agent-helper-1"
                   "pamixer --set-volume 100"
                   "${./scripts/gamemode.sh}" # we want to run gamemode at startup. game mode will be default  
