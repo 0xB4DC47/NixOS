@@ -6,30 +6,24 @@
       internalKeyboard = {
         extraDefCfg = "process-unmapped-keys yes"; 
         config = ''
-          ;; 1. Define the physical keys (the "input")
+          ;; 1. Define the physical keys we are intercepting
           (defsrc
-            caps  tab   lalt  lmet   h    j    k    l
+            caps lalt lmet
           )
 
-          ;; 2. Define the behaviors
+          ;; 2. Define the behavior for Caps Lock (Tap=Esc, Hold=Ctrl)
           (defalias
             escctrl (tap-hold 200 200 esc lctl)
-            tabnav  (tap-hold 200 200 tab (layer-toggle nav))
           )
 
-          ;; 3. The Base Layer
-          ;; Note: lmet and lalt are swapped here compared to defsrc
+          ;; 3. Create the layer where the remapping happens
           (deflayer base
-            @escctrl @tabnav lmet lalt  h    j    k    l
-          )
-
-          ;; 4. The Navigation Layer
-          ;; _ means "transparent" - it uses the behavior from the base layer
-          (deflayer nav
-            _        _       _    _    left down up  right
+            @escctrl lmet lalt
           )
         '';
       };
     };
   };
 }
+
+
