@@ -62,7 +62,7 @@ in
     ../../modules/programs/misc/mullvad
     ../../modules/programs/security/ghidra
     #../../modules/programs/security/ida
-    #../../modules/programs/security/binja
+    ../../modules/programs/security/binja
     ../../modules/programs/media/QBittorrent
 
   ]

@@ -8,5 +8,7 @@ output-*
 *.log
 *.tmp
 
+binaryninja*.zip
+
 [Bb]ackup
 [Bb]ackup/*
