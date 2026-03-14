@@ -6,6 +6,10 @@
       toolbar = true;
       bookmarks = [
         {
+          name = "Gmail";
+          url = "https://mail.google.com"
+        }
+        {
           name = "Youtube";
           url = "https://www.youtube.com";
         }
@@ -19,36 +23,11 @@
         }
         {
           name = "Github";
-          url = "https://github.com/";
+          url = "https://github.com/0xB4DC47/NixOS";
         }
         {
-          name = "ChatGPT";
-          url = "https://chatgpt.com/";
-        }
-        {
-          name = "Physics";
-          bookmarks = [
-            {
-              name = "Qubits";
-              url = "https://arxiv.org/pdf/1904.06560";
-            }
-            {
-              name = "Multi-Qubits";
-              url = "https://arxiv.org/pdf/2502.16479";
-            }
-            {
-              name = "Cryogenic Modeling";
-              url = "https://arxiv.org/pdf/2502.01945";
-            }
-            {
-              name = "Nuclear Spin Engineering";
-              url = "https://arxiv.org/pdf/2502.18450";
-            }
-            {
-              name = "Mixed State Entanglement";
-              url = "https://arxiv.org/pdf/2502.18446";
-            }
-          ];
+          name = "Claude";
+          url = "https://claude.ai/";
         }
         {
           name = "NixOS";
@@ -105,6 +84,10 @@
             {
               name = "SearX";
               url = "https://searx.aicampground.com";
+            }
+            {
+              name = "Google";
+              url = "https://google.com";
             }
           ];
         }
