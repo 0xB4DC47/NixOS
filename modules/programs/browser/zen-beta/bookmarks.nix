@@ -7,7 +7,7 @@
       bookmarks = [
         {
           name = "Gmail";
-          url = "https://mail.google.com"
+          url = "https://mail.google.com";
         }
         {
           name = "Youtube";

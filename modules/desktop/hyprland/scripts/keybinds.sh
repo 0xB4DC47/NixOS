@@ -75,7 +75,7 @@ yad \
   "ALT Return" "Toggle fullscreen" "fullscreen" \
   "SUPER F" "Toggle fullscreen" "fullscreen" \
   "SUPER ALT L" "Lock screen" "hyprlock" \
-  "SUPER Backspace" "Power menu" "wlogout -b 4" \
+  "SUPER Backspace" "Power menu" "wlogout -b 5" \
   "CTRL Escape" "Toggle Waybar" "pkill waybar || waybar" \
   "SUPER SHIFT N" "Open notification panel" "swaync-client -t -sw" \
   "SUPER SHIFT Q" "Open notification panel" "swaync-client -t -sw" \

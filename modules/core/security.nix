@@ -46,9 +46,22 @@
     };
   };
 
+  security.sudo.extraRules = [
+  {
+    groups = [ "wheel" ];
+    commands = [
+      {
+        command = "/run/current-system/sw/bin/efibootmgr";
+        options = [ "NOPASSWD" ];
+      }
+    ];
+  }
+];
+
   environment.systemPackages = with pkgs; [
     yubico-pam
     yubikey-manager
+    efibootmgr
   ];
 
   services.pcscd.enable = true;
@@ -61,5 +74,5 @@
     interactive = true;
     cue = true;
   };
-  security.pam.services.sddm.u2fAuth = true; # TODO: move this to hyprland config.
+  security.pam.services.sddm.u2fAuth = true;
 }

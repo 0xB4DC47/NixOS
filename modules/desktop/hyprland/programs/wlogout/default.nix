@@ -43,6 +43,12 @@
             text = "Reboot";
             keybind = "r";
           }
+          {
+            label = "windows";
+            action = "sudo efibootmgr --bootnext 0000 && systemctl reboot";
+            text = "Windows";
+            keybind = "w";
+          }
         ];
         style = ''
           window {
@@ -103,6 +109,12 @@
           }
           #reboot:focus {
             background-image: image(url("icons/restart-hover.png"));
+          }
+          #windows {
+            background-image: image(url("icons/windows.png"));
+          }
+          #windows:focus {
+            background-image: image(url("icons/windows-hover.png"));
           }
         '';
       };

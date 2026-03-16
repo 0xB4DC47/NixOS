@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }:
 {
@@ -23,9 +24,12 @@
 
       programs.zen-browser = {
         enable = true;
+        suppressXdgMigrationWarning = true;
         policies = import ./policies.nix { inherit lib; };
         languagePacks = [
           "en-US"
+          "es-MX"
+          "es-DO"
         ];
         profiles = {
           default = {
@@ -37,6 +41,32 @@
             search = import ./search.nix { inherit pkgs; };
             userChrome = builtins.readFile ./userChrome.css;
             userContent = builtins.readFile ./userContent.css;
+            spacesForce = true;
+            spaces = let 
+              containers = config.programs.zen-browser.profiles."default".containers;
+            in {
+              "Main" = {
+                id = "c6de089c-410d-4206-961d-ab11f988d40a";
+                icon = "😀";
+                position = 1000;
+              };
+
+              "Work" = {
+                id = "cdd10fab-4fc5-494b-9041-325e5759195b";
+                icon = "👷‍♂️";
+                position = 2000;
+              };
+              "Game" = {
+                id = "f446b76d-66f5-489a-8290-b0a283e216d8";
+                icon = "🎮";
+                position = 3000;
+              };
+              "Language" = {
+                id = "78aabdad-8aae-4fe0-8ff0-2a0c6c4ccc24";
+                icon = "📓";
+                position = 4000;
+              };
+            };
             extraConfig = ''
               ${builtins.readFile "${inputs.betterfox}/Fastfox.js"}
               ${builtins.readFile "${inputs.betterfox}/Peskyfox.js"}
