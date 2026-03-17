@@ -16,5 +16,6 @@
     libreoffice-qt-fresh
     gnome-text-editor
     ani-cli
+    android-tools
   ];
 }
