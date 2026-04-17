@@ -17,5 +17,6 @@
     gnome-text-editor
     ani-cli
     android-tools
+    usbutils
   ];
 }
