@@ -5,10 +5,10 @@
     spiceUSBRedirection.enable = true;
 
     docker = {
-      enable = true;
+      enable = false;
     };
 
-    podman.enable = false;
+    podman.enable = true;
 
     libvirtd = {
       enable = true;
