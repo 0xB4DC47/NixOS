@@ -7,8 +7,13 @@
     docker = {
       enable = false;
     };
-
-    podman.enable = true;
+    
+    podman = {
+      enable = true;
+      dockerCompat = true;           # symlinks docker -> podman
+      dockerSocket.enable = true;    # /var/run/docker.sock points at podman
+      defaultNetwork.settings.dns_enabled = true;  # DNS between containers
+    };
 
     libvirtd = {
       enable = true;
@@ -85,5 +90,6 @@
 
     lazydocker
     docker-client
+    docker-compose
   ];
 }
