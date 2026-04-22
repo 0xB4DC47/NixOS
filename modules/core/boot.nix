@@ -20,7 +20,7 @@ in
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
-      timeout = 0; # null == Display bootloader indefinitely until user selects OS; 0 == skip unless space is held.
+      timeout = 5; # null == Display bootloader indefinitely until user selects OS; 0 == skip unless space is held.
       grub = {
         #enable = true;
         enable = if vars.secureBoot then false else true;

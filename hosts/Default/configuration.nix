@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   vars = import ./variables.nix;
 in
@@ -77,4 +77,23 @@ in
   };
 
   boot.initrd.availableKernelModules = [ "tpm_tis" "tpm_crb" ];
+
+  # Mount Windows ESP (separate drive) to sync its boot files into /boot
+  fileSystems."/mnt/windows-efi" = {
+    device = "/dev/disk/by-uuid/4027-AB33";
+    fsType = "vfat";
+    options = [ "fmask=0133" "dmask=0022" "ro" "nofail" ];
+  };
+
+  # Sync Windows Boot Manager into /boot so systemd-boot/lanzaboote can detect it
+  systemd.services.sync-windows-efi = {
+    description = "Sync Windows EFI files to /boot";
+    after = [ "mnt-windows\\x2defi.mount" "boot.mount" ];
+    requires = [ "mnt-windows\\x2defi.mount" "boot.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /mnt/windows-efi/EFI/Microsoft /boot/EFI/";
+    };
+  };
 }
