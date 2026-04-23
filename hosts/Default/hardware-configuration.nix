@@ -26,6 +26,12 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  fileSystems."/mnt/windows-efi" =
+    { device = "/dev/disk/by-uuid/4027-AB33";
+      fsType = "vfat";
+      options = [ "fmask=0133" "dmask=0022" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/19ad119e-d4f8-49ae-b0f9-1e2dcee1fd05"; }
     ];
