@@ -71,6 +71,23 @@ in
 
   boot.initrd.systemd.enable = true;
 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    extraConfig = ''
+      HandlePowerKey=ignore
+      IdleAction=ignore
+    '';
+  };
+
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
+  boot.kernelParams = ["nohibernate"];
+
   # boot.initrd.luks.devices."luks-root" = {
   #   preLVM = true;
   #   crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure=no"];
