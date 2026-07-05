@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     binaryninja = {
-      url = "github:jchv/nix-binary-ninja";
+      url = "github:jchv/nix-binary-ninja/a71d24df00d819c5048f33e2b6633941b7b9d599";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {

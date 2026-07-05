@@ -30,7 +30,7 @@ in
   ];
   hardware = {
     nvidia = {
-      open = false;
+      open = true;
       # nvidiaPersistenced = true;
       nvidiaSettings = false;
       powerManagement.enable = true; # Fixes sleep/suspend
