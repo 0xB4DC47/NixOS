@@ -153,22 +153,11 @@ in
             };
             "hyprland/workspaces" = {
               disable-scroll = true;
-              all-outputs = true;
+              all-outputs = false;
               active-only = false;
               on-click = "activate";
               persistent-workspaces = {
-                "*" = [
-                  1
-                  2
-                  3
-                  4
-                  5
-                  6
-                  7
-                  8
-                  9
-                  10
-                ];
+                "*" = [ 1 2 3 4 5 6 7 8 9 10 ];
               };
             };
 
@@ -619,6 +608,15 @@ in
               padding-left: 8px;
               padding-right: 8px;
               animation: gradient_f 20s ease-in infinite;
+              transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+          }
+
+          /* Workspace visible on this output while focus is on another monitor */
+          #workspaces button.visible {
+          	color: @peach;
+            	border-radius: 10px;
+              padding-left: 8px;
+              padding-right: 8px;
               transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
           }
 
