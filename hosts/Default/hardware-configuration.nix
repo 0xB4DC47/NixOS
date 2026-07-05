@@ -20,16 +20,16 @@
 
   boot.initrd.luks.devices."luks-root".device = "/dev/disk/by-uuid/953ae8e7-75da-4255-9cd4-ebff324b6e2d";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BB54-4FE3";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
   fileSystems."/mnt/windows-efi" =
     { device = "/dev/disk/by-uuid/4027-AB33";
       fsType = "vfat";
       options = [ "fmask=0133" "dmask=0022" ];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/BB54-4FE3";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices =

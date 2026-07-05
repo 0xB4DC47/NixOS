@@ -68,6 +68,11 @@ in
   ]
   ++ lib.optional (vars.games == true) ../../modules/core/games.nix;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+    "docker-28.5.2"
+  ];
+
   boot.initrd.systemd.enable = true;
 
   boot.initrd.luks.devices."luks-root" = {
