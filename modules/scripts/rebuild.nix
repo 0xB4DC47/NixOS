@@ -36,20 +36,20 @@ pkgs.writeShellScriptBin "rebuild" ''
   # nh os switch --hostname "${host}"
   sudo nixos-rebuild switch --flake "$flake#${host}"
 
-  # Re-enroll TPM LUKS key only if PCR 0/7 changed (firmware update or Secure Boot key change)
+  # Re-enroll TPM LUKS key only if PCR 7 changed (Secure Boot state/key change)
   LUKS_DEVICE=$(sudo blkid -t TYPE=crypto_LUKS -o device 2>/dev/null | head -1)
   if [ -n "$LUKS_DEVICE" ] && sudo cryptsetup luksDump "$LUKS_DEVICE" | grep -q tpm2; then
     PCR7_FILE="/var/lib/tpm-luks-pcr7"
-    CURRENT_PCR7=$(sudo tpm2_pcrread sha256:0,7 2>/dev/null | grep -oP 'sha256:.*')
+    CURRENT_PCR7=$(sudo tpm2_pcrread sha256:7 2>/dev/null | sha256sum | awk '{print $1}')
     SAVED_PCR7=""
     if [ -f "$PCR7_FILE" ]; then
       SAVED_PCR7=$(cat "$PCR7_FILE")
     fi
     if [ -n "$CURRENT_PCR7" ] && [ "$CURRENT_PCR7" = "$SAVED_PCR7" ]; then
-      echo -e "''${GREEN}TPM LUKS key is still valid (PCR 0+7 unchanged), skipping re-enrollment.''${NC}"
+      echo -e "''${GREEN}TPM LUKS key is still valid (PCR 7 unchanged), skipping re-enrollment.''${NC}"
     else
-      echo -e "''${GREEN}Re-enrolling TPM LUKS key for $LUKS_DEVICE (PCR 0+7 changed)...''${NC}"
-      sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=0+7 "$LUKS_DEVICE"
+      echo -e "''${GREEN}Re-enrolling TPM LUKS key for $LUKS_DEVICE (PCR 7 changed)...''${NC}"
+      sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 "$LUKS_DEVICE"
       echo "$CURRENT_PCR7" | sudo tee "$PCR7_FILE" >/dev/null
     fi
   fi
