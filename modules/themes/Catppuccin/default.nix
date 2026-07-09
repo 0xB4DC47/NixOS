@@ -34,6 +34,7 @@ in
             package = pkgs.papirus-icon-theme;
             name = "Papirus-Dark";
           };
+          gtk4.theme = config.gtk.theme; # keep legacy default (pre-26.05 behavior)
           gtk3.extraConfig = {
             "gtk-application-prefer-dark-theme" = "1";
           };

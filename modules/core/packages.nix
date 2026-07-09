@@ -4,7 +4,6 @@
   programs = {
     fuse.userAllowOther = true;
     mtr.enable = true;
-    adb.enable = true;
     hyprlock.enable = true;
     gnupg.agent = {
       enable = true;
@@ -15,6 +14,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    android-tools # adb / fastboot
     appimage-run # Needed For AppImage Support
     killall # For Killing All Instances Of Programs
     lm_sensors # Used For Getting Hardware Temps

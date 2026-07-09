@@ -9,6 +9,7 @@
     (_: {
       programs.firefox = {
         enable = true;
+        configPath = ".mozilla/firefox"; # keep legacy path; existing profile data lives here
         package = pkgs.firefox-bin;
         policies = import ./policies.nix { inherit lib; };
         languagePacks = [
