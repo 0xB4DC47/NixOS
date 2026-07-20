@@ -69,6 +69,7 @@
   security.pam.services = {
     login.u2fAuth = true;
     sudo. u2fAuth = true;
+    hyprlock.u2fAuth = true; # yubikey-only unlock on idle/lock, same "sufficient" behavior as sudo
   };
   security.pam.u2f.settings = {
     interactive = true;
