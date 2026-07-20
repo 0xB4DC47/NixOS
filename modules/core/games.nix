@@ -15,6 +15,7 @@
     enable = true;
     enable32Bit = true;
   };
+  hardware.steam-hardware.enable = true; # udev rules for controller hotplug/permissions (Steam normally self-installs these; NixOS needs it declared)
   environment.systemPackages = with pkgs; [
     lutris
     heroic
@@ -46,13 +47,13 @@
     };
     gamescope = {
       enable = true;
-      capSysNice = true; # original
-      # capSysNice = false; 
+      capSysNice = false; 
       package = pkgs.gamescope;
       args = [
         "--rt"
         "--expose-wayland"
-        # "--adaptive-sync"
+        "--adaptive-sync" # G-Sync/FreeSync, kept in sync with the Steam gamescopeSession args
+        "--preferred-presentation-mode=mailbox"
 
         # experimental
         #"--immediate-flips"
@@ -76,7 +77,7 @@
             141
             240
             165
-            14
+            144
             60
           ];
           fps_limit_method = "late"; # late = low input lag but less smooth, early = more smooth

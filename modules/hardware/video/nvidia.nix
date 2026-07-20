@@ -18,6 +18,9 @@ in
     __GL_GSYNC_ALLOWED = "1"; # GSync
     __GL_VRR_ALLOWED = "1"; # VRR
     __GL_MaxFramesAllowed = "1"; # Reduces input lag
+
+    DXVK_FILTER_DEVICE_NAME = "NVIDIA GeForce RTX 3060";
+    VKD3D_FILTER_DEVICE_NAME = "NVIDIA GeForce RTX 3060";
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -26,12 +29,12 @@ in
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"
 
-    "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # Experimental: reduce latency
+    # "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1" # Experimental: reduce latency, disabled for stability
   ];
   hardware = {
     nvidia = {
       open = true;
-      # nvidiaPersistenced = true;
+      nvidiaPersistenced = true; # keeps GPU out of low-power reinit between frames, reduces stutter creep
       nvidiaSettings = false;
       powerManagement.enable = true; # Fixes sleep/suspend
 

@@ -278,8 +278,8 @@ in
                 ];
               };
               render = {
-                # direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
                 direct_scanout = 2; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
+                # direct_scanout = 0; # 0 = off, 1 = on, 2 = auto (on with content type ‘game’)
               };
               ecosystem = {
                 no_update_news = true;
@@ -290,7 +290,7 @@ in
                 mouse_move_focuses_monitor = true;
                 swallow_regex = "^(Alacritty|kitty)$";
                 enable_swallow = true;
-                vrr = 0; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
+                vrr = 3; # enable variable refresh rate (0=off, 1=on, 2=fullscreen only, 3 = fullscreen games/media)
               };
               debug = {
                 vfr = true; # moved from misc: in 0.55, always keep on
@@ -390,12 +390,14 @@ in
                 "float true, match:title ^(Picture-in-Picture)$, match:class ^(zen|zen-beta|floorp|firefox)$"
                 "pin true, match:title ^(Picture-in-Picture)$, match:class ^(zen|zen-beta|floorp|firefox)$"
 
-                "content game, match:tag games"
-                "tag +games, match:content game"
                 "tag +games, match:class ^(steam_app.*|steam_app_\d+)$"
                 "tag +games, match:class ^(gamescope)$"
                 "tag +games, match:class (Waydroid)"
                 "tag +games, match:class (osu!)"
+                "content game, match:class ^(steam_app.*|steam_app_\d+)$"
+                "content game, match:class ^(gamescope)$"
+                "content game, match:class (Waydroid)"
+                "content game, match:class (osu!)"
 
                 # Games
                 "sync_fullscreen true, match:tag games"
@@ -472,6 +474,7 @@ in
                   "$mainMod ALT, L, exec, hyprlock" # lock screen
                   "$mainMod, backspace, exec, pkill -x wlogout || wlogout -b 5" # logout menu
                   "$CONTROL, ESCAPE, exec, pkill waybar || waybar" # toggle waybar
+                  "$mainMod ALT SHIFT, M, dpms, on" # force-wake monitors if hypridle's auto dpms-on doesn't fire
 
                   # Hypr
 
