@@ -25,7 +25,6 @@
 
     steam-run
     wineWow64Packages.staging
-    gamescope
   ];
   programs = {
     gamemode.enable = true;
@@ -38,25 +37,29 @@
         enable = true;
         args = [
           "--rt"
-          "--expose-wayland"
-          # "--immediate-flips" # Tearing and low input lag
-          "--adaptive-sync"  # G-Sync/FreeSync
-          "--preferred-presentation-mode=mailbox"
+          "-W"
+          "2560"
+          "-H"
+          "1440"
+          "-f"
+          "--mangoapp"
+          "--adaptive-sync"  # G-Sync/FreeSync; override per-game by appending --immediate-flips in that game's launch options for tearing/lowest latency
         ];
       };
     };
     gamescope = {
       enable = true;
-      capSysNice = false; 
+      capSysNice = false;
       package = pkgs.gamescope;
       args = [
         "--rt"
-        "--expose-wayland"
-        "--adaptive-sync" # G-Sync/FreeSync, kept in sync with the Steam gamescopeSession args
-        "--preferred-presentation-mode=mailbox"
-
-        # experimental
-        #"--immediate-flips"
+        "-W"
+        "2560"
+        "-H"
+        "1440"
+        "-f" # Dell S2417DG native res, kept in sync with the Steam gamescopeSession args
+        "--mangoapp" # MangoHud overlay via gamescope's own compositor; requires --expose-wayland to be absent, see flightlessmango/MangoHud#1741
+        "--adaptive-sync" # G-Sync/FreeSync, kept in sync with the Steam gamescopeSession args; override per-game by appending --immediate-flips in that game's launch options for tearing/lowest latency
       ];
     };
   };
@@ -64,7 +67,7 @@
     (_: {
       programs.mangohud = {
         enable = true;
-        enableSessionWide = true;
+        enableSessionWide = false;
         settingsPerApplication = {
           mpv = {
             no_display = true;
