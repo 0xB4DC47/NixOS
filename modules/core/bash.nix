@@ -97,6 +97,7 @@
             tpr = "${pkgs.trash-cli}/bin/trash-restore";
             grep = "grep --color=always";
             pokemon = "pokego --random 1-8 --no-title";
+            monitor = "export HYPRLAND_INSTANCE_SIGNATURE=$(ls /run/user/$(id -u)/hypr/) && hyprctl dispatch dpms on"; # wake monitors from a TTY
 
             # Nixos
             list-gens = "nixos-rebuild list-generations";
